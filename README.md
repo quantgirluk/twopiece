@@ -1,6 +1,7 @@
 # twopiece: Two Piece Distributions
 
 - **Homepage:** https://github.com/quantgirluk/tpdist/tree/master/twopiece
+- **Pip Link:** https://pypi.org/project/twopiece/
 - **Free software:** MIT license
 
 
