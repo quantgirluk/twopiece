@@ -1,7 +1,6 @@
 # twopiece: Two Piece Distributions
 
-- **Homepage:** https://github.com/quantgirluk/tpdist/tree/master/twopiece
-- **Pip Link:** https://pypi.org/project/twopiece/
+- **Homepage:** https://github.com/quantgirluk/twopiece
 - **Free software:** MIT license
 
 
@@ -47,6 +46,10 @@ for all the supported distributions.
 
 To illustrate usage of the features for the 3 and 4 parameters distributions we will use 
 the two-piece normal, and two-piece t, respectively. The behaviour is analogous for the rest of the supported distributions.
+
+```
+from twopiece.single import *
+```
 
 
 #### 1. Create a twopiece instance
@@ -96,6 +99,7 @@ To visualise the pdf use
 x = arange(-12, 12, 0.1)
 y = dist.pdf(x)
 plt.plot(x, y)
+plt.show()
 ```
 
 #### 3. Evaluate the cumulative distribution function (cdf)
@@ -114,6 +118,7 @@ To visualise the cdf use
 x = arange(-12, 12, 0.1)
 y = dist.cdf(x)
 plt.plot(x, y)
+plt.show()
 ```
 
 #### 4. Evaluate the quantile function (ppf)
@@ -131,6 +136,7 @@ To visualise the ppf use
 x = arange(0.001, 0.999, 0.01)
 y = dist.ppf(x)
 plt.plot(x, y)
+plt.show()
 ```
 
 #### 5. Generate a random sample
