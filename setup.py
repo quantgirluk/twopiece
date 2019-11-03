@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="twopiece",
-    version="1.0.0",
+    version="1.1.3",
     author="Dialid Santiago ",
     author_email="d.santiago@outlook.com",
     description="Two-Piece Distributions Implementation",
@@ -19,4 +19,5 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     python_requires='>=3.6',
+    install_requires=['numpy>=1.13.1', 'scipy>=0.19.1', 'matplotlib>=2.2.2', 'seaborn>=0.8'],
 )
