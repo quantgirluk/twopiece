@@ -1,2 +1,2 @@
 
-Single contains the two-piece normal distributions main classes.
+The file single.py contains the two-piece normal distributions main classes.
