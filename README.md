@@ -8,8 +8,22 @@
 
 The **twopiece** library provides a Python implementation of the family of Two Piece distributions. 
 
-The family of univariate two–piece distributions is a family of univariate three-parameter location-scale models, where skewness is introduced 
-by differing scale parameters either side of the location. For details on this family of distributions we refer to 
+The family of univariate two–piece distributions is a family of univariate three-parameter location-scale models, where skewness is introduced by differing scale parameters either side of the location. 
+
+
+**Definition.** Let $f: \mathbb{R} \mapsto \mathbb{R}_{+}$ be a unimodal symmetric (about 0) probability density function (pdf) from the [location-scale family](https://en.wikipedia.org/wiki/Location%E2%80%93scale_family), possibly including a shape parameter $\delta$. Then, the pdf of a member of the two-piece family of distributions is given by
+
+$$
+s\left(x; \mu,\sigma_1,\sigma_2, \delta\right) =
+  \begin{cases}
+\dfrac{2}{\sigma_1+\sigma_2}f\left(\dfrac{x-\mu}{\sigma_1};\delta\right), \mbox{if } x < \mu, \\
+\dfrac{2}{\sigma_1+\sigma_2}f\left(\dfrac{x-\mu}{\sigma_2};\delta\right), \mbox{if } x \geq \mu. \\
+\end{cases}
+$$
+
+**Example** If $f$ corresponds to the normal pdf, then $s$ corresponds to the pdf of the Two-Piece Normal distribution as proposed by [Gustav Fechner](https://en.wikipedia.org/wiki/Gustav_Fechner).
+
+For details on this family of distributions we refer to 
 [Inference in Two-Piece Location-Scale Models with Jeffreys Priors](https://projecteuclid.org/euclid.ba/1393251764)
 published in Bayesian Anal.
 Volume 9, Number 1 (2014), 1-22 and the references therein.
