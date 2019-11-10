@@ -6,7 +6,8 @@
 
 - **Download:** https://pypi.org/project/twopiece/
 - **Source Code:** https://github.com/quantgirluk/twopiece
-
+- **[Install](#install)**
+- **[Quick Start](#quick-start)**
 ## Overview
 
 
@@ -27,7 +28,7 @@ published in Bayesian Anal.
 Volume 9, Number 1 (2014), 1-22 and the references therein.
 
 
-## Supported Distributions
+### Supported Distributions
 Implementation is provided for the following distributions
 
 #### Three Parameters
@@ -43,7 +44,7 @@ Implementation is provided for the following distributions
 - two-piece exponential power **tpgennorm**
 
 
-## Methods
+### Methods
 We provide the following functionality:
 
 - probability density function **pdf**
@@ -53,7 +54,16 @@ We provide the following functionality:
 
 for all the supported distributions.
 
+<a name="install"></a>
+## Install
 
+We recommend using [pip](https://pip.pypa.io/en/stable/) to install **twopiece**
+```
+pip install twopiece
+
+```
+
+<a name="quick-start"></a>
 ## Quick Start
 
 To illustrate usage of the features for the 3 and 4 parameters distributions we will use 
@@ -64,7 +74,7 @@ from twopiece.single import *
 ```
 
 
-#### 1. Create a twopiece instance
+### 1. Create a twopiece instance
 To create an instance we need to specify either 3 or 4 parameters:
 
 For the **two-piece normal** we require:
@@ -95,7 +105,7 @@ dist = tpstudent(loc=loc, sigma1=sigma1, sigma2=sigma2, shape=shape)
 
 Hereafter we assume that there is a twopiece instance called *dist*.
 
-#### 2. Evaluate and visualise the probability density function (pdf)
+### 2. Evaluate and visualise the probability density function (pdf)
 We can evaluate the pdf on a single point or an array type object
 
 ```
@@ -114,7 +124,7 @@ plt.plot(x, y)
 plt.show()
 ```
 
-#### 3. Evaluate the cumulative distribution function (cdf)
+### 3. Evaluate the cumulative distribution function (cdf)
 We can evaluate the cdf on a single point or an array type object
 ```
 dist.cdf(0)
@@ -133,7 +143,7 @@ plt.plot(x, y)
 plt.show()
 ```
 
-#### 4. Evaluate the quantile function (ppf)
+### 4. Evaluate the percent point function (ppf)
 We can evaluate the ppf on a single point or an array type object. Note that the ppf has support on [0,1].
 ```
 dist.ppf(0.95)
@@ -160,9 +170,8 @@ To generate a random sample we require:
 sample = dist.random_sample(size = 100)
 ```
 
-### Install
 
-#### Requirements
+## Requirements
 
 **twopiece** has been developed and tested on [Python 3.6, and 3.7](https://www.python.org/downloads/)
 
