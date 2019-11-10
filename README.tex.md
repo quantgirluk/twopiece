@@ -3,7 +3,6 @@
 - **Homepage:** https://github.com/quantgirluk/twopiece
 - **Free software:** MIT license
 
-
 ### Overview
 
 The **twopiece** library provides a Python implementation of the family of Two Piece distributions. 
