@@ -8,7 +8,7 @@
 - **Source Code:** https://github.com/quantgirluk/twopiece
 - **[Install](#install)**
 - **[Quick Start](#quick-start)**
-- **[Demo Jupyter Notebook](https://github.com/quantgirluk/twopiece/blob/master/twopiece_demo.ipynb)** [![Binder](https://mybinder.org/badge_logo.svg)](https://hub.gke.mybinder.org/user/quantgirluk-twopiece-aqwe1xlc/notebooks/twopiece_demo.ipynb)
+- **[Demo Jupyter Notebook](https://github.com/quantgirluk/twopiece/blob/master/twopiece_demo.ipynb)** [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/quantgirluk/twopiece/master?filepath=twopiece_demo.ipynb)
 ## Overview
 
 
