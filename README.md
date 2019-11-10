@@ -1,11 +1,16 @@
 # twopiece: Two Piece Distributions
 
-- **Homepage:** https://github.com/quantgirluk/twopiece
-- **Free software:** MIT license
+[![PyPI version fury.io](https://badge.fury.io/py/twopiece.svg)](https://pypi.python.org/pypi/twpiece/)
+[![PyPI license](https://img.shields.io/pypi/l/twopiece.svg)](https://pypi.python.org/pypi/twopiece/)
 
-### Overview
 
-The **twopiece** library provides a Python implementation of the family of Two Piece distributions. 
+- **Download:** https://pypi.org/project/twopiece/
+- **Source Code:** https://github.com/quantgirluk/twopiece
+
+## Overview
+
+
+The **[twopiece](https://pypi.org/project/twopiece/)** library provides a [Python](https://www.python.org/) implementation of the family of Two Piece distributions. 
 
 The family of univariate two–piece distributions is a family of univariate three-parameter location-scale models, where skewness is introduced by differing scale parameters either side of the location. 
 
@@ -14,7 +19,7 @@ The family of univariate two–piece distributions is a family of univariate thr
 
 <p align="center"><img src="/tex/9ca96c940649a631c3b13f49eea29620.svg?invert_in_darkmode&sanitize=true" align=middle width=373.54424249999994pt height=78.90491235pt/></p>
 
-**Example** If <img src="/tex/190083ef7a1625fbc75f243cffb9c96d.svg?invert_in_darkmode&sanitize=true" align=middle width=9.81741584999999pt height=22.831056599999986pt/> corresponds to the normal pdf, then <img src="/tex/6f9bad7347b91ceebebd3ad7e6f6f2d1.svg?invert_in_darkmode&sanitize=true" align=middle width=7.7054801999999905pt height=14.15524440000002pt/> corresponds to the pdf of the Two-Piece Normal distribution as proposed by [Gustav Fechner](https://en.wikipedia.org/wiki/Gustav_Fechner).
+**Example.** If <img src="/tex/190083ef7a1625fbc75f243cffb9c96d.svg?invert_in_darkmode&sanitize=true" align=middle width=9.81741584999999pt height=22.831056599999986pt/> corresponds to the normal pdf, then <img src="/tex/6f9bad7347b91ceebebd3ad7e6f6f2d1.svg?invert_in_darkmode&sanitize=true" align=middle width=7.7054801999999905pt height=14.15524440000002pt/> corresponds to the pdf of the Two-Piece Normal distribution as proposed by [Gustav Fechner](https://en.wikipedia.org/wiki/Gustav_Fechner). The two-piece normal is also known as [split normal](https://en.wikipedia.org/wiki/Split_normal_distribution), binormal, and double Gaussian.
 
 For details on this family of distributions we refer to 
 [Inference in Two-Piece Location-Scale Models with Jeffreys Priors](https://projecteuclid.org/euclid.ba/1393251764)
@@ -22,34 +27,34 @@ published in Bayesian Anal.
 Volume 9, Number 1 (2014), 1-22 and the references therein.
 
 
-### Supported Distributions
+## Supported Distributions
 Implementation is provided for the following distributions
 
 #### Three Parameters
 
-- two-piece normal [[+ info]](https://en.wikipedia.org/wiki/Split_normal_distribution)
-- two-piece Laplace
-- two-piece Cauchy
-- two-piece logistic
+- two-piece normal **tpnorm**
+- two-piece Laplace **tplaplace**
+- two-piece Cauchy **tpcauchy**
+- two-piece logistic **tplogistic**
 
 #### Four Parameters
 
-- two-piece t
-- two-piece exponential power
+- two-piece t **tpstudent**
+- two-piece exponential power **tpgennorm**
 
 
-### Main Features
+## Methods
 We provide the following functionality:
 
-- probability density function ***pdf***
-- cumulative distribution function ***cdf***
-- quantile function ***ppf***
-- random generation ***random_sample***
+- probability density function **pdf**
+- cumulative distribution function **cdf**
+- quantile function **ppf**
+- random generation **random_sample**
 
 for all the supported distributions.
 
 
-### Quick Start
+## Quick Start
 
 To illustrate usage of the features for the 3 and 4 parameters distributions we will use 
 the two-piece normal, and two-piece t, respectively. The behaviour is analogous for the rest of the supported distributions.
