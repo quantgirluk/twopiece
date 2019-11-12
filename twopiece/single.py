@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+# name: twopiece.single.py
+# author: D.Santiago
+# --
+# coding: utf-8
+
 from numpy import isscalar, asarray, random, min, max, arange, sum, empty
 import scipy.stats
 import matplotlib.pyplot as plt
@@ -113,10 +119,11 @@ def qqf_tp_generic(q, qqf, loc, sigma1, sigma2):
 
     else:
 
+        q = asarray(q)
+        
         if sum((q > 1) | (q < 0)) > 0:
             raise AssertionError('Quantile Function is defined on (0,1).')
 
-        q = asarray(q)
         output = empty(q.size)
         index = q <= p
         output[index] = loc + sigma1 * qqf(0.5 * (sigma1 + sigma2) * q[index] / sigma1)
