@@ -1,6 +1,6 @@
 # twopiece: Two Piece Distributions
 
-[![PyPI version fury.io](https://badge.fury.io/py/twopiece.svg)](https://pypi.python.org/pypi/twpiece/)
+[![PyPI version fury.io](https://badge.fury.io/py/twopiece.svg)](https://pypi.python.org/pypi/twopiece/)
 [![PyPI license](https://img.shields.io/pypi/l/twopiece.svg)](https://pypi.python.org/pypi/twopiece/)
 
 
