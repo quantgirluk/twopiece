@@ -4,13 +4,12 @@
 # --
 # coding: utf-8
 
-from numpy import isscalar, asarray, random, min, max, arange, sum, empty
-import scipy.stats
-import matplotlib.pyplot as plt
-from seaborn import set, distplot
 import math
 
-set(style='whitegrid', rc={"grid.linewidth": 0.75, "figure.figsize": (9, 6)})
+import scipy.stats
+from numpy import isscalar, asarray, random, sum, empty
+
+from twopiece.utils import display_dist
 
 
 def pdf_tp_generic(x, pdf, loc, sigma1, sigma2):
@@ -120,7 +119,7 @@ def qqf_tp_generic(q, qqf, loc, sigma1, sigma2):
     else:
 
         q = asarray(q)
-        
+
         if sum((q > 1) | (q < 0)) > 0:
             raise AssertionError('Quantile Function is defined on (0,1).')
 
@@ -317,11 +316,10 @@ class TwoPieceShape:
         if kind not in {'inverse_scale', 'epsilon_skew', 'percentile', 'boe'}:
             raise ValueError('Invalid Parametrisation.')
 
-        self.f = f
         self.loc = loc
         self.sigma = sigma
         self.gamma = gamma
-        self.shape = shape
+        self.f = f(shape)
         self.kind = kind
 
         if sigma1 and sigma2:
@@ -344,26 +342,19 @@ class TwoPieceShape:
 class tp_continuous_shape(TwoPieceShape):
 
     def pdf(self, x):
-        f = self.f(self.shape)
-        s = pdf_tp_generic(x, f.pdf, self.loc, self.sigma1, self.sigma2)
+        s = pdf_tp_generic(x, self.f.pdf, self.loc, self.sigma1, self.sigma2)
         return s
 
     def cdf(self, x):
-        f = self.f(self.shape)
-        s = cdf_tp_generic(x, f.cdf, self.loc, self.sigma1, self.sigma2)
-
+        s = cdf_tp_generic(x, self.f.cdf, self.loc, self.sigma1, self.sigma2)
         return s
 
     def ppf(self, x):
-        f = self.f(self.shape).ppf
-        qq = qqf_tp_generic(x, f, self.loc, self.sigma1, self.sigma2)
-
+        qq = qqf_tp_generic(x, self.f.ppf, self.loc, self.sigma1, self.sigma2)
         return qq
 
     def random_sample(self, size):
-        f = self.f(self.shape).ppf
-        sample = random_tp_sample(size, f, self.loc, self.sigma1, self.sigma2)
-
+        sample = random_tp_sample(size, self.f.ppf, self.loc, self.sigma1, self.sigma2)
         return sample
 
 
@@ -375,72 +366,27 @@ class tpstudent(tp_continuous_shape):
 
 class tpgennorm(tp_continuous_shape):
 
-    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape=0.5, kind='boe'):
+    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape=None, kind='boe'):
         tp_continuous_shape.__init__(self, scipy.stats.gennorm, loc, sigma1, sigma2, sigma, gamma, shape, kind)
 
 
-def display_dist(dist, name=None, color='blue', bound=False, show='All'):
-    """
-    Shows graphs for a given two piece distribution
-    :param dist: distribution instance
-    :param name: string, name
-    :param color: string, color
-    :param bound: boolean, bounding the x axis for better display
-    :param show: string, All, pdf, cds, ppf, sample
-    :return:
-    """
-
-    if show in ['All', 'pdf']:
-        x = arange(-12, 12, 0.1)
-        y = dist.pdf(x)
-        plt.figure('Probability Density Function')
-        plt.plot(x, y, marker='', linestyle='solid', color=color)
-        plt.title(name + ' pdf')
-        plt.show()
-
-    if show in ['All', 'cdf']:
-        x = arange(-15, 15, 0.1)
-        y = dist.cdf(x)
-        plt.figure('Cumulative Distribution Function')
-        plt.plot(x, y, marker='', linestyle='solid', color=color)
-        plt.title(name + ' cdf')
-        plt.show()
-
-    if show in ['All', 'ppf']:
-        x = arange(0.001, 0.999, 0.01)
-        y = dist.ppf(x)
-        plt.figure('Quantile Function')
-        plt.plot(x, y, marker='', linestyle='solid', color=color)
-        plt.title(name + ' ppf')
-        plt.show()
-
-    if show in ['All', 'random_sample']:
-
-        sample = dist.random_sample(1000)
-
-        if bound:
-            sample = sample[abs(sample) < 25]
-
-        plt.figure('Random Sample')
-        distplot(sample, bins=30, kde=False, norm_hist=True)
-        x = arange(min(sample), max(sample), 0.1)
-        y = dist.pdf(x)
-        plt.plot(x, y, marker='', linestyle='solid', color=color)
-        plt.title(name + ' sample generation')
-        plt.show()
-
-    return 1
+from twopiece.sinharcsinh import ssas
 
 
-def display_tpdist(loc=0.0, sigma1=1.0, sigma2=1.0, shape=3.0, tpdist='All', show='All'):
+class tpsas(tp_continuous_shape):
 
+    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape=None, kind='boe'):
+        tp_continuous_shape.__init__(self, ssas, loc, sigma1, sigma2, sigma, gamma, shape, kind)
+
+
+def display_tpdist(tpdist='All', loc=0.0, sigma1=1.0, sigma2=1.0, shape=3.0, show='random_sample'):
     if tpdist in ['All', 'tpnorm']:
         z = tpnorm(loc=loc, sigma1=sigma1, sigma2=sigma2)
-        display_dist(dist=z, color='blue', name='tpnorm', show=show)
+        display_dist(dist=z, color='dodgerblue', name='tpnorm', show=show)
 
     if tpdist in ['All', 'tplaplace']:
         z = tplaplace(loc=loc, sigma1=sigma1, sigma2=sigma2)
-        display_dist(dist=z, color='green', name='tplaplace', show=show)
+        display_dist(dist=z, color='greenyellow', name='tplaplace', show=show)
 
     if tpdist in ['All', 'tpcauchy']:
         z = tpcauchy(loc=loc, sigma1=sigma1, sigma2=sigma2)
@@ -448,49 +394,21 @@ def display_tpdist(loc=0.0, sigma1=1.0, sigma2=1.0, shape=3.0, tpdist='All', sho
 
     if tpdist in ['All', 'tplogistic']:
         z = tplogistic(loc=loc, sigma1=sigma1, sigma2=sigma2)
-        display_dist(dist=z, color='navy', name='tplogistic', show=show)
+        display_dist(dist=z, color='aquamarine', name='tplogistic', show=show)
 
     if tpdist in ['All', 'tpstudent']:
         z = tpstudent(loc=loc, sigma1=sigma1, sigma2=sigma2, shape=shape)
-        display_dist(dist=z, color='coral', name='tpstudent', show=show)
+        display_dist(dist=z, color='gold', name='tpstudent', show=show)
 
     if tpdist in ['All', 'tpgennorm']:
         z = tpgennorm(loc=loc, sigma1=sigma1, sigma2=sigma2, shape=shape)
-        display_dist(dist=z, color='purple', name='tpgen_norm', show=show)
+        display_dist(dist=z, color='cyan', name='tpgen_norm', show=show)
+
+    if tpdist in ['All', 'tpsas']:
+        z = tpsas(loc=loc, sigma1=sigma1, sigma2=sigma2, shape=shape)
+        display_dist(dist=z, color='deeppink', name='tpsas', show=show)
 
     return 1
 
 
-def display_parametrizations(dist=None, loc=0.0, sigma1=1.0, sigma2=1.0, sigma=1.0, gamma=0.5, show='random_sample'):
-
-    z = dist(loc=loc, sigma1=sigma1, sigma2=sigma2)
-    display_dist(dist=z, color='blue', name='standard', show=show)
-
-    z = dist(loc=loc, sigma=sigma, gamma=gamma, kind='boe')
-    display_dist(dist=z, color='coral', name='boe', show=show)
-
-    z = dist(loc=loc, sigma=sigma, gamma=gamma, kind='inverse_scale')
-    display_dist(dist=z, color='red', name='inverse_scale', show=show)
-
-    z = dist(loc=loc, sigma=sigma, gamma=gamma, kind='percentile')
-    display_dist(dist=z, color='black', name='percentile', show=show)
-
-    return 1
-
-
-def display_parametrizations_shape(dist=None, loc=0.0, sigma1=1.0, sigma2=1.0,
-                                   sigma=1.0, gamma=0.5, shape=2.0, show='random_sample'):
-
-    z = dist(loc=loc, sigma1=sigma1, sigma2=sigma2, shape=shape)
-    display_dist(dist=z, color='blue', name='standard', show=show)
-
-    z = dist(loc=loc, sigma=sigma, gamma=gamma, shape=shape, kind='boe')
-    display_dist(dist=z, color='coral', name='boe', show=show)
-
-    z = dist(loc=loc, sigma=sigma, gamma=gamma, shape=shape, kind='inverse_scale')
-    display_dist(dist=z, color='red', name='inverse_scale', show=show)
-
-    z = dist(loc=loc, sigma=sigma, gamma=gamma, shape=shape, kind='percentile')
-    display_dist(dist=z, color='black', name='percentile', show=show)
-
-    return 1
+display_tpdist()

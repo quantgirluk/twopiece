@@ -60,7 +60,7 @@ for all the supported distributions.
 To illustrate usage of the features for the 3 and 4 parameters distributions we will use 
 the two-piece normal, and two-piece t, respectively. The behaviour is analogous for the rest of the supported distributions.
 
-```
+``` python
 from twopiece.single import *
 ```
 
