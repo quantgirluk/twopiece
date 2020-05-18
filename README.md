@@ -1,18 +1,11 @@
 # twopiece: Two Piece Distributions
 
-[![PyPI version fury.io](https://badge.fury.io/py/twopiece.svg)](https://pypi.python.org/pypi/twopiece/)
-[![PyPI license](https://img.shields.io/pypi/l/twopiece.svg)](https://pypi.python.org/pypi/twopiece/)
+- **Homepage:** https://github.com/quantgirluk/twopiece
+- **Free software:** MIT license
 
+### Overview
 
-- **Download:** https://pypi.org/project/twopiece/
-- **Source Code:** https://github.com/quantgirluk/twopiece
-- **[Install](#install)**
-- **[Quick Start](#quick-start)**
-- **[Demo Jupyter Notebook](https://github.com/quantgirluk/twopiece/blob/master/twopiece_demo.ipynb)** [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/quantgirluk/twopiece/master?filepath=twopiece_demo.ipynb)
-## Overview
-
-
-The **[twopiece](https://pypi.org/project/twopiece/)** library provides a [Python](https://www.python.org/) implementation of the family of Two Piece distributions. 
+The **twopiece** library provides a Python implementation of the family of Two Piece distributions. 
 
 The family of univariate two–piece distributions is a family of univariate three-parameter location-scale models, where skewness is introduced by differing scale parameters either side of the location. 
 
@@ -21,7 +14,7 @@ The family of univariate two–piece distributions is a family of univariate thr
 
 <p align="center"><img src="/tex/9ca96c940649a631c3b13f49eea29620.svg?invert_in_darkmode&sanitize=true" align=middle width=373.54424249999994pt height=78.90491235pt/></p>
 
-**Example.** If <img src="/tex/190083ef7a1625fbc75f243cffb9c96d.svg?invert_in_darkmode&sanitize=true" align=middle width=9.81741584999999pt height=22.831056599999986pt/> corresponds to the normal pdf, then <img src="/tex/6f9bad7347b91ceebebd3ad7e6f6f2d1.svg?invert_in_darkmode&sanitize=true" align=middle width=7.7054801999999905pt height=14.15524440000002pt/> corresponds to the pdf of the Two-Piece Normal distribution as proposed by [Gustav Fechner](https://en.wikipedia.org/wiki/Gustav_Fechner). The two-piece normal is also known as [split normal](https://en.wikipedia.org/wiki/Split_normal_distribution), binormal, and double Gaussian.
+**Example** If <img src="/tex/190083ef7a1625fbc75f243cffb9c96d.svg?invert_in_darkmode&sanitize=true" align=middle width=9.81741584999999pt height=22.831056599999986pt/> corresponds to the normal pdf, then <img src="/tex/6f9bad7347b91ceebebd3ad7e6f6f2d1.svg?invert_in_darkmode&sanitize=true" align=middle width=7.7054801999999905pt height=14.15524440000002pt/> corresponds to the pdf of the Two-Piece Normal distribution as proposed by [Gustav Fechner](https://en.wikipedia.org/wiki/Gustav_Fechner).
 
 For details on this family of distributions we refer to 
 [Inference in Two-Piece Location-Scale Models with Jeffreys Priors](https://projecteuclid.org/euclid.ba/1393251764)
@@ -34,48 +27,39 @@ Implementation is provided for the following distributions
 
 #### Three Parameters
 
-- two-piece normal **tpnorm**
-- two-piece Laplace **tplaplace**
-- two-piece Cauchy **tpcauchy**
-- two-piece logistic **tplogistic**
+- two-piece normal [[+ info]](https://en.wikipedia.org/wiki/Split_normal_distribution)
+- two-piece Laplace
+- two-piece Cauchy
+- two-piece logistic
 
 #### Four Parameters
 
-- two-piece t **tpstudent**
-- two-piece exponential power **tpgennorm**
+- two-piece t
+- two-piece exponential power
 
 
-### Methods
+### Main Features
 We provide the following functionality:
 
-- probability density function **pdf**
-- cumulative distribution function **cdf**
-- quantile function **ppf**
-- random generation **random_sample**
+- probability density function ***pdf***
+- cumulative distribution function ***cdf***
+- quantile function ***ppf***
+- random generation ***random_sample***
 
 for all the supported distributions.
 
-<a name="install"></a>
-## Install
 
-We recommend using [pip](https://pip.pypa.io/en/stable/) to install **twopiece**
-```
-pip install twopiece
-
-```
-
-<a name="quick-start"></a>
-## Quick Start
+### Quick Start
 
 To illustrate usage of the features for the 3 and 4 parameters distributions we will use 
 the two-piece normal, and two-piece t, respectively. The behaviour is analogous for the rest of the supported distributions.
 
-```
+``` python
 from twopiece.single import *
 ```
 
 
-### 1. Create a twopiece instance
+#### 1. Create a twopiece instance
 To create an instance we need to specify either 3 or 4 parameters:
 
 For the **two-piece normal** we require:
@@ -106,7 +90,7 @@ dist = tpstudent(loc=loc, sigma1=sigma1, sigma2=sigma2, shape=shape)
 
 Hereafter we assume that there is a twopiece instance called *dist*.
 
-### 2. Evaluate and visualise the probability density function (pdf)
+#### 2. Evaluate and visualise the probability density function (pdf)
 We can evaluate the pdf on a single point or an array type object
 
 ```
@@ -125,7 +109,7 @@ plt.plot(x, y)
 plt.show()
 ```
 
-### 3. Evaluate the cumulative distribution function (cdf)
+#### 3. Evaluate the cumulative distribution function (cdf)
 We can evaluate the cdf on a single point or an array type object
 ```
 dist.cdf(0)
@@ -144,7 +128,7 @@ plt.plot(x, y)
 plt.show()
 ```
 
-### 4. Evaluate the percent point function (ppf)
+#### 4. Evaluate the quantile function (ppf)
 We can evaluate the ppf on a single point or an array type object. Note that the ppf has support on [0,1].
 ```
 dist.ppf(0.95)
@@ -171,8 +155,9 @@ To generate a random sample we require:
 sample = dist.random_sample(size = 100)
 ```
 
+### Install
 
-## Requirements
+#### Requirements
 
 **twopiece** has been developed and tested on [Python 3.6, and 3.7](https://www.python.org/downloads/)
 
