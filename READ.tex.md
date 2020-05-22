@@ -13,12 +13,15 @@
 - [Supported Distributions](#supported-distributions)
 - [Main Features](#main-features)
 - [Quick Start](#quick-start)
+- [Install](#install)
 <!-- /TOC -->
 ---
 ## Overview
-The **twopiece** library provides a [Python](https://www.python.org/) implementation of the family of Two Piece distributions. It covers two subfamilies Single Two-Piece (or simply called Two-Piece) and Double Two Piece.
 
-### Single Two-Piece Scale
+The **_twopiece_** library provides a [Python](https://www.python.org/) implementation of the family of Two Piece distributions. It covers three subfamilies Two-Piece Scale, Two-Piece Shape, and Double Two-Piece.
+
+---
+### Two-Piece Scale
 
 The family of two–piece distributions is a family of univariate three parameter location-scale models, where **_skewness_** is introduced by differing **_scale_** parameters either side of the location.
 
@@ -34,22 +37,24 @@ $$
 
 **Example.** If $f$ corresponds to the normal pdf, then $s$ corresponds to the pdf of the Two-Piece Normal distribution as proposed by [Gustav Fechner](https://en.wikipedia.org/wiki/Gustav_Fechner).
 
+
 For details on this family of distributions we refer to
 [Inference in Two-Piece Location-Scale Models with Jeffreys Priors](https://projecteuclid.org/euclid.ba/1393251764)
-published in Bayesian Anal.
+published in [Bayesian Anal.](https://projecteuclid.org/euclid.ba)
 Volume 9, Number 1 (2014), 1-22 and the references therein.
 
+---
 
-### Single Two-Piece Shape
+### Two-Piece Shape
 
 The family of two–piece distributions is a family of univariate three parameter location-scale models, where **_skewness_** is introduced by differing **_shape_** parameters either side of the location.
 
 This transformation produces distributions with different shape parameters in each direction
 
-**Definition.** Let $f: \mathbb{R} \mapsto \mathbb{R}_{+}$ be a unimodal symmetric (about 0) probability density function (pdf) from the [location-scale family](https://en.wikipedia.org/wiki/Location%E2%80%93scale_family) which includes a shape parameter $\delta$. Then, the pdf of a member of the two-piece family of distributions is given by
+**Definition.** Let $f: \mathbb{R} \mapsto \mathbb{R}_{+}$ be a unimodal symmetric (about 0) probability density function (pdf) from the [location-scale family](https://en.wikipedia.org/wiki/Location%E2%80%93scale_family) which includes a [shape parameter](https://en.wikipedia.org/wiki/Shape_parameter) $\delta$. Then, the pdf of a member of the two-piece family of distributions is given by
 
 $$
-s\left(x; \mu,\sigma_1,\sigma_2, \delta\right) =
+s\left(x; \mu,\sigma,\delta_1 \delta_2\right) =
   \begin{cases}
 \dfrac{2\epsilon}{\sigma}f\left(\dfrac{x-\mu}{\sigma};\delta_1\right), \mbox{if } x < \mu, \\
 \dfrac{2(1 -\epsilon)}{\sigma}f\left(\dfrac{x-\mu}{\sigma};\delta_2\right), \mbox{if } x \geq \mu. \\
@@ -61,20 +66,22 @@ $$
 $$
 
 
-**Example.** If $f$ corresponds to the normal pdf, then $s$ corresponds to the pdf of the Two-Piece Normal distribution as proposed by [Gustav Fechner](https://en.wikipedia.org/wiki/Gustav_Fechner).
+**Example.** If $f$ corresponds to the t-Student pdf, then $s$ corresponds to the pdf of the Two-Piece Student distribution.
+
+
 
 For details on this family of distributions we refer to
-[Inference in Two-Piece Location-Scale Models with Jeffreys Priors](https://projecteuclid.org/euclid.ba/1393251764)
-published in Bayesian Anal.
-Volume 9, Number 1 (2014), 1-22 and the references therein.
+[Bayesian modelling of skewness and kurtosis with Two-Piece Scale and shape distributions](https://projecteuclid.org/euclid.ejs/1440680330)
+published in [Electron. J. Statist.](https://projecteuclid.org/euclid.ejs), Volume 9, Number 2 (2015), 1884-1912. and the references therein.
 
+---
 
 ### Double Two-Piece
 
 The family of double two–piece distributions is obtained by using
 a density–based transformation of unimodal symmetric continuous distributions with a shape parameter. The resulting distributions contain five interpretable parameters that control the mode, as well as both **scale and shape** in each direction.
 
-**Definition.** Let $f: \mathbb{R} \mapsto \mathbb{R}_{+}$ be a unimodal symmetric (about 0) probability density function (pdf) from the [location-scale family](https://en.wikipedia.org/wiki/Location%E2%80%93scale_family) which includes a shape parameter $\delta$. Then, the pdf of a member of the two-piece family of distributions is given by
+**Definition.** Let $f: \mathbb{R} \mapsto \mathbb{R}_{+}$ be a unimodal symmetric (about 0) probability density function (pdf) from the [location-scale family](https://en.wikipedia.org/wiki/Location%E2%80%93scale_family) which includes a [shape parameter](https://en.wikipedia.org/wiki/Shape_parameter) $\delta$. Then, the pdf of a member of the two-piece family of distributions is given by
 
 $$
 s\left(x; \mu,\sigma_1,\sigma_2, \delta\right) =
@@ -88,6 +95,11 @@ $$
 \epsilon = \dfrac{\sigma_1f(0;\delta_2)}{\sigma2f(0;\delta_1)+\sigma_1 f(0;\delta_2)}.
 $$
 
+**Example.** If $f$ corresponds to the t-Student pdf, then $s$ corresponds to the pdf of the Two-Piece Student distribution.
+
+For details on this family of distributions we refer to
+[Bayesian modelling of skewness and kurtosis with Two-Piece Scale and shape distributions](https://projecteuclid.org/euclid.ejs/1440680330)
+published in [Electron. J. Statist.](https://projecteuclid.org/euclid.ejs), Volume 9, Number 2 (2015), 1884-1912. and the references therein.
 
 -------------------------------------------------------------
 
@@ -96,7 +108,7 @@ $$
 ## Supported Distributions
 Implementation is provided for the following distributions.
 
-### Single Two-Piece Scale
+###  Two-Piece Scale
 
 | Name      |  Function        | Parameters |
 |-------------|-------------|----------|
@@ -108,7 +120,7 @@ Implementation is provided for the following distributions.
 | Two-Piece Exponential Power      | tpgennorm    | loc, sigma1, sigma2, shape |
 | Two-Piece SinhArcSinh    | tpsas   |loc, sigma1, sigma2, shape |
 
-### Single Two-Piece Shape
+###  Two-Piece Shape
 
 | Name      |  Function        | Parameters |
 |-------------|-------------|----------|
@@ -247,11 +259,10 @@ To generate a random sample we require:
 sample = dist.random_sample(size = 100)
 ```
 
-### Install
+## Install
 
 #### Requirements
-
-**twopiece** has been developed and tested on [Python 3.6, and 3.7](https://www.python.org/downloads/)
+**_twopiece_** has been developed and tested on [Python 3.6, and 3.7](https://www.python.org/downloads/)
 
 
 ```
