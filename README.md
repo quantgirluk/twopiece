@@ -3,6 +3,7 @@
 
 - **Homepage:** https://github.com/quantgirluk/twopiece
 - **Free software:** MIT license
+- **Pip Repository:** [twopiece](https://pypi.org/project/twopiece/)
 
 ---
 
@@ -86,7 +87,7 @@ where
 
 
 -------------------------------------------------------------
-### References
+### Notes
 
 For technical details on this families of distributions we refer to the following two publications which serve as reference for our implementation.
 
@@ -99,6 +100,11 @@ published in [Electron. J. Statist.](https://projecteuclid.org/euclid.ejs), Volu
 For the [R](https://www.r-project.org/) implementation we refer to the following packages.
 
 - [twopiece, DTP, and TPSAS](https://sites.google.com/site/fjavierrubio67/resources)
+
+
+_twopiece_ has been developed and tested on [Python 3.6, and 3.7](https://www.python.org/downloads/). 
+
+
 
 ---
 ## Supported Distributions
@@ -154,8 +160,7 @@ for all the supported distributions.
 
 #### Install
 
-**_twopiece_** has been developed and tested on [Python 3.6, and 3.7](https://www.python.org/downloads/). 
-We recommend install _twopiece_ using [pip](https://pip.pypa.io/en/stable/) as follow.
+We recommend install _twopiece_ using [pip](https://pip.pypa.io/en/stable/) as follows.
 
 
 ```
@@ -166,7 +171,7 @@ To illustrate usage two-piece scale distributions we will use
 the two-piece Normal, and two-piece Student-t. The behaviour is analogous for the rest of 
 the supported distributions.
 
-
+---
 
 #### 1. Create a twopiece instance
 
@@ -201,7 +206,7 @@ For the **Two-Piece Student-t** we require:
 ```python
 loc=0.0
 sigma1=1.0
-sigma2=1.0
+sigma2=2.0
 shape=3.0
 dist = tpstudent(loc=loc, sigma1=sigma1, sigma2=sigma2, shape=shape)
 ```
@@ -211,21 +216,20 @@ For the **Double Two-Piece Student-t** we require:
 
 - *loc*: which is the location parameter
 - *sigma1, sigma2* : which are both scale parameters
-- *shape1, shape_2* : which define the degrees of freedom for the t-Student distribution on each side of
+- *shape1, shape2* : which define the degrees of freedom for the t-Student distribution on each side of
 the mode.
 
 ```python
 loc=0.0
 sigma1=1.0
-sigma2=1.0
+sigma2=2.0
 shape1=3.0
 shape2=10.0
-dist = dtpstudent(loc=loc, sigma1=sigma1, sigma2=sigma2, shape=shape)
+dist = dtpstudent(loc=loc, sigma1=sigma1, sigma2=sigma2, shape1=shape1, shape2=shape2)
 ```
 
-
-
 Hereafter we assume that there is a twopiece instance called *dist*.
+
 
 #### 2. Evaluate and visualise the probability density function (pdf)
 We can evaluate the pdf on a single point or an array type object
@@ -291,3 +295,7 @@ To generate a random sample we require:
 ```python
 sample = dist.random_sample(size = 100)
 ```
+
+---
+
+
