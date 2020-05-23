@@ -10,11 +10,17 @@ The **twopiece** library provides a Python implementation of the family of Two P
 The family of univariate two–piece distributions is a family of univariate three-parameter location-scale models, where skewness is introduced by differing scale parameters either side of the location.
 
 
-**Definition.** Let <img src="/tex/4ca7071da574c80015a95feaaac0db88.svg?invert_in_darkmode&sanitize=true" align=middle width=82.9221657pt height=22.831056599999986pt/> be a unimodal symmetric (about 0) probability density function (pdf) from the [location-scale family](https://en.wikipedia.org/wiki/Location%E2%80%93scale_family), possibly including a shape parameter <img src="/tex/38f1e2a089e53d5c990a82f284948953.svg?invert_in_darkmode&sanitize=true" align=middle width=7.928075099999989pt height=22.831056599999986pt/>. Then, the pdf of a member of the two-piece family of distributions is given by
+**Definition.** Let $f: \mathbb{R} \mapsto \mathbb{R}_{+}$ be a unimodal symmetric (about 0) probability density function (pdf) from the [location-scale family](https://en.wikipedia.org/wiki/Location%E2%80%93scale_family), possibly including a shape parameter $\delta$. Then, the pdf of a member of the two-piece family of distributions is given by
 
-<p align="center"><img src="/tex/9ca96c940649a631c3b13f49eea29620.svg?invert_in_darkmode&sanitize=true" align=middle width=373.54424249999994pt height=78.90491235pt/></p>
+$$
+s\left(x; \mu,\sigma_1,\sigma_2, \delta\right) =
+  \begin{cases}
+\dfrac{2}{\sigma_1+\sigma_2}f\left(\dfrac{x-\mu}{\sigma_1};\delta\right), \mbox{if } x < \mu, \\
+\dfrac{2}{\sigma_1+\sigma_2}f\left(\dfrac{x-\mu}{\sigma_2};\delta\right), \mbox{if } x \geq \mu. \\
+\end{cases}
+$$
 
-**Example** If <img src="/tex/190083ef7a1625fbc75f243cffb9c96d.svg?invert_in_darkmode&sanitize=true" align=middle width=9.81741584999999pt height=22.831056599999986pt/> corresponds to the normal pdf, then <img src="/tex/6f9bad7347b91ceebebd3ad7e6f6f2d1.svg?invert_in_darkmode&sanitize=true" align=middle width=7.7054801999999905pt height=14.15524440000002pt/> corresponds to the pdf of the Two-Piece Normal distribution as proposed by [Gustav Fechner](https://en.wikipedia.org/wiki/Gustav_Fechner).
+**Example** If $f$ corresponds to the normal pdf, then $s$ corresponds to the pdf of the Two-Piece Normal distribution as proposed by [Gustav Fechner](https://en.wikipedia.org/wiki/Gustav_Fechner).
 
 For details on this family of distributions we refer to
 [Inference in Two-Piece Location-Scale Models with Jeffreys Priors](https://projecteuclid.org/euclid.ba/1393251764)
