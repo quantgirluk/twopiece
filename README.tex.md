@@ -176,15 +176,23 @@ for all the supported distributions.
 
 #### Install
 
-**_twopiece_** has been developed and tested on [Python 3.6, and 3.7](https://www.python.org/downloads/)
+**_twopiece_** has been developed and tested on [Python 3.6, and 3.7](https://www.python.org/downloads/). 
+We recommend install _twopiece_ using [pip](https://pip.pypa.io/en/stable/) as follow.
 
 
 ```
 pip install twopiece
 ```
 
+To illustrate usage two-piece scale distributions we will use
+the two-piece Normal, and two-piece Student-t. The behaviour is analogous for the rest of 
+the supported distributions.
 
-To load each family (scale, shape and double) of two-piece distributions use 
+
+
+#### 1. Create a twopiece instance
+
+First, we load the family (scale, shape and double) of two-piece distributions that we want to use. 
 
 ``` python
 from twopiece.scale import *
@@ -192,15 +200,9 @@ from twopiece.shape import *
 from twopiece.double import *
 ```
 
-To illustrate usage two-piece scale distributions we will use
-the two-piece Normal, and two-piece Student-t. The behaviour is analogous for the rest of the supported distributions.
+To create an instance we need to specify either 3, 4, or 5 parameters:
 
-
-
-#### 1. Create a twopiece instance
-To create an instance we need to specify either 3 or 4 parameters:
-
-For the **two-piece normal** we require:
+For the **Two-Piece Normal** we require:
 
 - *loc*: which is the location parameter
 - *sigma1*, *sigma2* : which are both scale parameters
@@ -212,7 +214,7 @@ sigma2=1.0
 dist = tpnorm(loc=loc, sigma1=sigma1, sigma2=sigma2)
 ```
 
-For the **two-piece t** we require:
+For the **Two-Piece Student-t** we require:
 
 - *loc*: which is the location parameter
 - *sigma1*, *sigma2* : which are both scale parameters
@@ -225,6 +227,25 @@ sigma2=1.0
 shape=3.0
 dist = tpstudent(loc=loc, sigma1=sigma1, sigma2=sigma2, shape=shape)
 ```
+
+
+For the **Double Two-Piece Student-t** we require:
+
+- *loc*: which is the location parameter
+- *sigma1, sigma2* : which are both scale parameters
+- *shape1, shape_2* : which define the degrees of freedom for the t-Student distribution on each side of
+the mode.
+
+```python
+loc=0.0
+sigma1=1.0
+sigma2=1.0
+shape1=3.0
+shape2=10.0
+dist = dtpstudent(loc=loc, sigma1=sigma1, sigma2=sigma2, shape=shape)
+```
+
+
 
 Hereafter we assume that there is a twopiece instance called *dist*.
 
