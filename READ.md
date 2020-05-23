@@ -24,7 +24,6 @@ The **_twopiece_** library provides a [Python](https://www.python.org/) implemen
 <center>
   <p><img src="families.png"
     width="500" height="230">
-  <figcaption>Two Piece Families</figcaption>
 </figure>
 
 ---
@@ -104,9 +103,9 @@ Implementation is provided for the following distributions.
 
 | Name      |  Function        | Parameters |
 |-------------|-------------|----------|
-| Two-Piece Student-t      | tpshstudent    | loc, sigma, shape1, shape2 |
-| Two-Piece Exponential Power      | tpshgennorm    | loc, sigma, shape1, shape2 |
-| Two-Piece SinhArcSinh    | tpshsas   |loc, sigma, shape1, shape2 |
+| Two-Piece Student-t      | tpshastudent    | loc, sigma, shape1, shape2 |
+| Two-Piece Exponential Power      | tpshagennorm    | loc, sigma, shape1, shape2 |
+| Two-Piece SinhArcSinh    | tpshasas   |loc, sigma, shape1, shape2 |
 
 
 
@@ -135,12 +134,28 @@ for all the supported distributions.
 ---
 ## Quick Start
 
-To illustrate usage of the features for the 3 and 4 parameters distributions we will use
-the two-piece normal, and two-piece t, respectively. The behaviour is analogous for the rest of the supported distributions.
+
+#### Install
+
+**_twopiece_** has been developed and tested on [Python 3.6, and 3.7](https://www.python.org/downloads/)
+
+
+```
+pip install twopiece
+```
+
+
+To load each family (scale, shape and double) of two-piece distributions use 
 
 ``` python
-from twopiece.single import *
+from twopiece.scale import *
+from twopiece.shape import *
+from twopiece.double import *
 ```
+
+To illustrate usage two-piece scale distributions we will use
+the two-piece Normal, and two-piece Student-t. The behaviour is analogous for the rest of the supported distributions.
+
 
 
 #### 1. Create a twopiece instance
@@ -237,14 +252,4 @@ To generate a random sample we require:
 
 ```python
 sample = dist.random_sample(size = 100)
-```
-
-## Install
-
-#### Requirements
-**_twopiece_** has been developed and tested on [Python 3.6, and 3.7](https://www.python.org/downloads/)
-
-
-```
-pip install twopiece
 ```
