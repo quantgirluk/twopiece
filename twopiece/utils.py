@@ -3,7 +3,6 @@ import math
 import matplotlib.pyplot as plt
 from numpy import min, max, arange
 from seaborn import distplot
-
 from seaborn import set
 
 set(style='whitegrid', rc={"grid.linewidth": 0.75, "figure.figsize": (9, 6)})
@@ -115,7 +114,6 @@ def display_dist(dist, name='', color='dodgerblue', bound=False, show='random_sa
 
 
 def display_parameterisations(dist=None, loc=0.0, sigma1=1.0, sigma2=1.0, sigma=1.0, gamma=0.5, show='random_sample'):
-
     z = dist(loc=loc, sigma1=sigma1, sigma2=sigma2)
     display_dist(dist=z, color='blue', name='standard', show=show)
 
@@ -133,7 +131,6 @@ def display_parameterisations(dist=None, loc=0.0, sigma1=1.0, sigma2=1.0, sigma=
 
 def display_parameterisations_shape(dist=None, loc=0.0, sigma1=1.0, sigma2=1.0,
                                     sigma=1.0, gamma=0.5, shape=2.0, show='random_sample'):
-
     z = dist(loc=loc, sigma1=sigma1, sigma2=sigma2, shape=shape)
     display_dist(dist=z, color='dodgerblue', name='standard', show=show)
 

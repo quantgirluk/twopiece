@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# name: twopiece.single.py
+# name: twopiece.scale.py
 # author: D.Santiago
+# https://www.linkedin.com/in/dialidsantiago/
+# @Quant_Girl
 # --
 # coding: utf-8
 
@@ -8,7 +10,7 @@ import math
 
 import scipy.stats
 from numpy import isscalar, asarray, random, sum, empty
-
+from twopiece.sinharcsinh import ssas
 from twopiece.utils import display_dist
 
 
@@ -260,7 +262,7 @@ class TwoPiece:
                 print('Missing or Invalid Arguments')
 
 
-class tp_continuous(TwoPiece):
+class TwoPieceScale(TwoPiece):
 
     def pdf(self, x):
         s = pdf_tp_generic(x, self.f.pdf, self.loc, self.sigma1, self.sigma2)
@@ -282,31 +284,31 @@ class tp_continuous(TwoPiece):
         return sample
 
 
-class tpnorm(tp_continuous):
+class tpnorm(TwoPieceScale):
 
     def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, kind='boe'):
-        tp_continuous.__init__(self, scipy.stats.norm, loc, sigma1, sigma2, sigma, gamma, kind)
+        TwoPieceScale.__init__(self, scipy.stats.norm, loc, sigma1, sigma2, sigma, gamma, kind)
 
 
-class tplaplace(tp_continuous):
-
-    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, kind='boe'):
-        tp_continuous.__init__(self, scipy.stats.laplace, loc, sigma1, sigma2, sigma, gamma, kind)
-
-
-class tpcauchy(tp_continuous):
+class tplaplace(TwoPieceScale):
 
     def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, kind='boe'):
-        tp_continuous.__init__(self, scipy.stats.cauchy, loc, sigma1, sigma2, sigma, gamma, kind)
+        TwoPieceScale.__init__(self, scipy.stats.laplace, loc, sigma1, sigma2, sigma, gamma, kind)
 
 
-class tplogistic(tp_continuous):
+class tpcauchy(TwoPieceScale):
 
     def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, kind='boe'):
-        tp_continuous.__init__(self, scipy.stats.logistic, loc, sigma1, sigma2, sigma, gamma, kind)
+        TwoPieceScale.__init__(self, scipy.stats.cauchy, loc, sigma1, sigma2, sigma, gamma, kind)
 
 
-class TwoPieceShape:
+class tplogistic(TwoPieceScale):
+
+    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, kind='boe'):
+        TwoPieceScale.__init__(self, scipy.stats.logistic, loc, sigma1, sigma2, sigma, gamma, kind)
+
+
+class TwoPieceScalewithShape:
 
     def __init__(self, f, loc, sigma1, sigma2, sigma, gamma, shape, kind):
 
@@ -339,7 +341,7 @@ class TwoPieceShape:
                 print('Exception Missing or Invalid Arguments')
 
 
-class tp_continuous_shape(TwoPieceShape):
+class tp_scalesh(TwoPieceScalewithShape):
 
     def pdf(self, x):
         s = pdf_tp_generic(x, self.f.pdf, self.loc, self.sigma1, self.sigma2)
@@ -358,28 +360,25 @@ class tp_continuous_shape(TwoPieceShape):
         return sample
 
 
-class tpstudent(tp_continuous_shape):
+class tpstudent(tp_scalesh):
 
     def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape=None, kind='boe'):
-        tp_continuous_shape.__init__(self, scipy.stats.t, loc, sigma1, sigma2, sigma, gamma, shape, kind)
+        tp_scalesh.__init__(self, scipy.stats.t, loc, sigma1, sigma2, sigma, gamma, shape, kind)
 
 
-class tpgennorm(tp_continuous_shape):
-
-    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape=None, kind='boe'):
-        tp_continuous_shape.__init__(self, scipy.stats.gennorm, loc, sigma1, sigma2, sigma, gamma, shape, kind)
-
-
-from twopiece.sinharcsinh import ssas
-
-
-class tpsas(tp_continuous_shape):
+class tpgennorm(tp_scalesh):
 
     def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape=None, kind='boe'):
-        tp_continuous_shape.__init__(self, ssas, loc, sigma1, sigma2, sigma, gamma, shape, kind)
+        tp_scalesh.__init__(self, scipy.stats.gennorm, loc, sigma1, sigma2, sigma, gamma, shape, kind)
 
 
-def display_tpdist(tpdist='All', loc=0.0, sigma1=1.0, sigma2=1.0, shape=3.0, show='random_sample'):
+class tpsas(tp_scalesh):
+
+    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape=None, kind='boe'):
+        tp_scalesh.__init__(self, ssas, loc, sigma1, sigma2, sigma, gamma, shape, kind)
+
+
+def display_tpscale(tpdist='All', loc=0.0, sigma1=1.0, sigma2=1.0, shape=3.0, show='random_sample'):
     if tpdist in ['All', 'tpnorm']:
         z = tpnorm(loc=loc, sigma1=sigma1, sigma2=sigma2)
         display_dist(dist=z, color='dodgerblue', name='tpnorm', show=show)
@@ -409,6 +408,3 @@ def display_tpdist(tpdist='All', loc=0.0, sigma1=1.0, sigma2=1.0, shape=3.0, sho
         display_dist(dist=z, color='deeppink', name='tpsas', show=show)
 
     return 1
-
-
-display_tpdist()

@@ -1,6 +1,5 @@
 # *twopiece*: Two-Piece Distributions
 
----
 
 - **Homepage:** https://github.com/quantgirluk/twopiece
 - **Free software:** MIT license
@@ -13,14 +12,25 @@
 - [Supported Distributions](#supported-distributions)
 - [Main Features](#main-features)
 - [Quick Start](#quick-start)
+- [Install](#install)
 <!-- /TOC -->
 ---
 ## Overview
-The **twopiece** library provides a [Python](https://www.python.org/) implementation of the family of Two Piece distributions. It covers two subfamilies Single Two-Piece (or simply called Two-Piece) and Double Two Piece.
 
-### Single Two-Piece Scale
+The **_twopiece_** library provides a [Python](https://www.python.org/) implementation of the family of Two Piece distributions. It covers three subfamilies Two-Piece Scale, Two-Piece Shape, and Double Two-Piece.
 
-The family of two–piece distributions is a family of univariate three parameter location-scale models, where **_skewness_** is introduced by differing **_scale_** parameters either side of the location.
+
+<figure>
+<center>
+  <p><img src="families.png"
+    width="500" height="230">
+  <figcaption>Two Piece Families</figcaption>
+</figure>
+
+---
+### Two-Piece Scale
+
+The family of **two–piece scale distributions** is a family of univariate three parameter location-scale models, where **_skewness_** is introduced by differing **_scale_** parameters either side of the mode.
 
 **Definition.** Let <img src="/tex/4ca7071da574c80015a95feaaac0db88.svg?invert_in_darkmode&sanitize=true" align=middle width=82.9221657pt height=22.831056599999986pt/> be a unimodal symmetric (about 0) probability density function (pdf) from the [location-scale family](https://en.wikipedia.org/wiki/Location%E2%80%93scale_family), possibly including a shape parameter <img src="/tex/38f1e2a089e53d5c990a82f284948953.svg?invert_in_darkmode&sanitize=true" align=middle width=7.928075099999989pt height=22.831056599999986pt/>. Then, the pdf of a member of the two-piece family of distributions is given by
 
@@ -28,53 +38,57 @@ The family of two–piece distributions is a family of univariate three paramete
 
 **Example.** If <img src="/tex/190083ef7a1625fbc75f243cffb9c96d.svg?invert_in_darkmode&sanitize=true" align=middle width=9.81741584999999pt height=22.831056599999986pt/> corresponds to the normal pdf, then <img src="/tex/6f9bad7347b91ceebebd3ad7e6f6f2d1.svg?invert_in_darkmode&sanitize=true" align=middle width=7.7054801999999905pt height=14.15524440000002pt/> corresponds to the pdf of the Two-Piece Normal distribution as proposed by [Gustav Fechner](https://en.wikipedia.org/wiki/Gustav_Fechner).
 
-For details on this family of distributions we refer to
-[Inference in Two-Piece Location-Scale Models with Jeffreys Priors](https://projecteuclid.org/euclid.ba/1393251764)
-published in Bayesian Anal.
-Volume 9, Number 1 (2014), 1-22 and the references therein.
+---
 
+### Two-Piece Shape
 
-### Single Two-Piece Shape
+The family of **two–piece shape distributions** is a family of univariate three parameter location-scale models, where **_skewness_** is introduced by differing **_shape_** parameters either side of the mode.
 
-The family of two–piece distributions is a family of univariate three parameter location-scale models, where **_skewness_** is introduced by differing **_shape_** parameters either side of the location.
+**Definition.** Let <img src="/tex/4ca7071da574c80015a95feaaac0db88.svg?invert_in_darkmode&sanitize=true" align=middle width=82.9221657pt height=22.831056599999986pt/> be a unimodal symmetric (about 0) probability density function (pdf) from the [location-scale family](https://en.wikipedia.org/wiki/Location%E2%80%93scale_family) which includes a [shape parameter](https://en.wikipedia.org/wiki/Shape_parameter) <img src="/tex/38f1e2a089e53d5c990a82f284948953.svg?invert_in_darkmode&sanitize=true" align=middle width=7.928075099999989pt height=22.831056599999986pt/>. Then, the pdf of a member of the two-piece family of distributions is given by
 
-This transformation produces distributions with different shape parameters in each direction
-
-**Definition.** Let <img src="/tex/4ca7071da574c80015a95feaaac0db88.svg?invert_in_darkmode&sanitize=true" align=middle width=82.9221657pt height=22.831056599999986pt/> be a unimodal symmetric (about 0) probability density function (pdf) from the [location-scale family](https://en.wikipedia.org/wiki/Location%E2%80%93scale_family) which includes a shape parameter <img src="/tex/38f1e2a089e53d5c990a82f284948953.svg?invert_in_darkmode&sanitize=true" align=middle width=7.928075099999989pt height=22.831056599999986pt/>. Then, the pdf of a member of the two-piece family of distributions is given by
-
-<p align="center"><img src="/tex/2c601710def0a1da3c4a31cf38e86187.svg?invert_in_darkmode&sanitize=true" align=middle width=382.65770234999997pt height=78.90491235pt/></p>
+<p align="center"><img src="/tex/81e674d9eba4cb167f57ec3efcb06b6c.svg?invert_in_darkmode&sanitize=true" align=middle width=372.31906634999996pt height=78.90491235pt/></p>
 where
 <p align="center"><img src="/tex/871605a493d6cfa82fe61bc27f18c895.svg?invert_in_darkmode&sanitize=true" align=middle width=162.8092653pt height=38.83491479999999pt/></p>
 
 
-**Example.** If <img src="/tex/190083ef7a1625fbc75f243cffb9c96d.svg?invert_in_darkmode&sanitize=true" align=middle width=9.81741584999999pt height=22.831056599999986pt/> corresponds to the normal pdf, then <img src="/tex/6f9bad7347b91ceebebd3ad7e6f6f2d1.svg?invert_in_darkmode&sanitize=true" align=middle width=7.7054801999999905pt height=14.15524440000002pt/> corresponds to the pdf of the Two-Piece Normal distribution as proposed by [Gustav Fechner](https://en.wikipedia.org/wiki/Gustav_Fechner).
+**Example.** If <img src="/tex/190083ef7a1625fbc75f243cffb9c96d.svg?invert_in_darkmode&sanitize=true" align=middle width=9.81741584999999pt height=22.831056599999986pt/> corresponds to the Student-t pdf, then <img src="/tex/6f9bad7347b91ceebebd3ad7e6f6f2d1.svg?invert_in_darkmode&sanitize=true" align=middle width=7.7054801999999905pt height=14.15524440000002pt/> corresponds to the pdf of the Two-Piece Shape Student-t distribution. Note that <img src="/tex/6f9bad7347b91ceebebd3ad7e6f6f2d1.svg?invert_in_darkmode&sanitize=true" align=middle width=7.7054801999999905pt height=14.15524440000002pt/> has different shape parameter on each side mode but the same scale .
 
-For details on this family of distributions we refer to
-[Inference in Two-Piece Location-Scale Models with Jeffreys Priors](https://projecteuclid.org/euclid.ba/1393251764)
-published in Bayesian Anal.
-Volume 9, Number 1 (2014), 1-22 and the references therein.
-
+---
 
 ### Double Two-Piece
 
-The family of double two–piece distributions is obtained by using
+The family of **double two–piece distributions** is obtained by using
 a density–based transformation of unimodal symmetric continuous distributions with a shape parameter. The resulting distributions contain five interpretable parameters that control the mode, as well as both **scale and shape** in each direction.
 
-**Definition.** Let <img src="/tex/4ca7071da574c80015a95feaaac0db88.svg?invert_in_darkmode&sanitize=true" align=middle width=82.9221657pt height=22.831056599999986pt/> be a unimodal symmetric (about 0) probability density function (pdf) from the [location-scale family](https://en.wikipedia.org/wiki/Location%E2%80%93scale_family) which includes a shape parameter <img src="/tex/38f1e2a089e53d5c990a82f284948953.svg?invert_in_darkmode&sanitize=true" align=middle width=7.928075099999989pt height=22.831056599999986pt/>. Then, the pdf of a member of the two-piece family of distributions is given by
+**Definition.** Let <img src="/tex/4ca7071da574c80015a95feaaac0db88.svg?invert_in_darkmode&sanitize=true" align=middle width=82.9221657pt height=22.831056599999986pt/> be a unimodal symmetric (about 0) probability density function (pdf) from the [location-scale family](https://en.wikipedia.org/wiki/Location%E2%80%93scale_family) which includes a [shape parameter](https://en.wikipedia.org/wiki/Shape_parameter) <img src="/tex/38f1e2a089e53d5c990a82f284948953.svg?invert_in_darkmode&sanitize=true" align=middle width=7.928075099999989pt height=22.831056599999986pt/>. Then, the pdf of a member of the two-piece family of distributions is given by
 
 <p align="center"><img src="/tex/61c9e1e1dea385b358a74fd421ff0564.svg?invert_in_darkmode&sanitize=true" align=middle width=382.65770234999997pt height=78.90491235pt/></p>
 where
 <p align="center"><img src="/tex/698b64ad741e638c3c6d56f882c8a307.svg?invert_in_darkmode&sanitize=true" align=middle width=197.7788736pt height=38.83491479999999pt/></p>
 
+**Example.** If <img src="/tex/190083ef7a1625fbc75f243cffb9c96d.svg?invert_in_darkmode&sanitize=true" align=middle width=9.81741584999999pt height=22.831056599999986pt/> corresponds to the Student-t pdf then <img src="/tex/6f9bad7347b91ceebebd3ad7e6f6f2d1.svg?invert_in_darkmode&sanitize=true" align=middle width=7.7054801999999905pt height=14.15524440000002pt/> corresponds to the pdf of the Double Two-Piece Student-t distribution. Note that <img src="/tex/6f9bad7347b91ceebebd3ad7e6f6f2d1.svg?invert_in_darkmode&sanitize=true" align=middle width=7.7054801999999905pt height=14.15524440000002pt/> has different scale and shape on each side of the mode.
+
 
 -------------------------------------------------------------
+### References
+
+For technical details on this families of distributions we refer to the following two publications which serve as reference for our implementation.
+
+- [Inference in Two-Piece Location-Scale Models with Jeffreys Priors](https://projecteuclid.org/euclid.ba/1393251764) published in [Bayesian Anal.](https://projecteuclid.org/euclid.ba) Volume 9, Number 1 (2014), 1-22.
 
 
+- [Bayesian modelling of skewness and kurtosis with Two-Piece Scale and shape distributions](https://projecteuclid.org/euclid.ejs/1440680330)
+published in [Electron. J. Statist.](https://projecteuclid.org/euclid.ejs), Volume 9, Number 2 (2015), 1884-1912.
 
+For the [R](https://www.r-project.org/) implementation we refer to the following packages.
+
+- [twopiece, DTP, and TPSAS](https://sites.google.com/site/fjavierrubio67/resources)
+
+---
 ## Supported Distributions
 Implementation is provided for the following distributions.
 
-### Single Two-Piece Scale
+###  Two-Piece Scale
 
 | Name      |  Function        | Parameters |
 |-------------|-------------|----------|
@@ -86,7 +100,7 @@ Implementation is provided for the following distributions.
 | Two-Piece Exponential Power      | tpgennorm    | loc, sigma1, sigma2, shape |
 | Two-Piece SinhArcSinh    | tpsas   |loc, sigma1, sigma2, shape |
 
-### Single Two-Piece Shape
+###  Two-Piece Shape
 
 | Name      |  Function        | Parameters |
 |-------------|-------------|----------|
@@ -225,11 +239,10 @@ To generate a random sample we require:
 sample = dist.random_sample(size = 100)
 ```
 
-### Install
+## Install
 
 #### Requirements
-
-**twopiece** has been developed and tested on [Python 3.6, and 3.7](https://www.python.org/downloads/)
+**_twopiece_** has been developed and tested on [Python 3.6, and 3.7](https://www.python.org/downloads/)
 
 
 ```

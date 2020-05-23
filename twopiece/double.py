@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+# name: twopiece.double.py
+# author: D.Santiago
+# https://www.linkedin.com/in/dialidsantiago/
+# @Quant_Girl
+# --
+# coding: utf-8
+
+
 import scipy.stats
 from numpy import isscalar, asarray, random, sum, empty
 
@@ -247,7 +256,6 @@ class tpd_continuous(TwoPieceDouble):
 
         return sample
 
-
 class dtpstudent(tpd_continuous):
 
     def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape1=None, shape2=None, kind='boe'):
@@ -266,7 +274,7 @@ class dtpsas(tpd_continuous):
         tpd_continuous.__init__(self, ssas, loc, sigma1, sigma2, sigma, gamma, shape1, shape2, kind)
 
 
-def display_tpd(tpd='All', loc=0.0, sigma1=1.0, sigma2=0.5, shape1=2.0, shape2=6.0, show='random_sample', xlim=None):
+def display_dtp(tpd='All', loc=0.0, sigma1=1.0, sigma2=0.5, shape1=2.0, shape2=6.0, show='random_sample', xlim=None):
     if tpd in ['All', 'dtpstudent']:
         z = dtpstudent(loc=loc, sigma1=sigma1, sigma2=sigma2, shape1=shape1, shape2=shape2)
         display_dist(dist=z, color='dodgerblue', bound=True, name='dtpstudent', show=show, xlim=xlim)
@@ -280,6 +288,3 @@ def display_tpd(tpd='All', loc=0.0, sigma1=1.0, sigma2=0.5, shape1=2.0, shape2=6
         display_dist(dist=z, color='deeppink', name='dtpsas', show=show, xlim=xlim)
 
     return 1
-
-
-display_tpd()
