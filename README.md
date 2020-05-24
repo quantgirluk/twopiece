@@ -1,10 +1,11 @@
 # *twopiece*: Two-Piece Distributions
 
+[![PyPI version fury.io](https://badge.fury.io/py/twopiece.svg)](https://pypi.python.org/pypi/twpiece/)
+[![PyPI license](https://img.shields.io/pypi/l/twopiece.svg)](https://pypi.python.org/pypi/twopiece/)
 
 - Homepage: https://github.com/quantgirluk/twopiece
 - Pip Repository: [twopiece](https://pypi.org/project/twopiece/)
-- Demo: [Python Notebook](https://github.com/quantgirluk/twopiece/blob/master/twopiece_demo.ipynb)
-- Demo: [Interactive](https://mybinder.org/v2/gh/quantgirluk/Quant-Girl-Blog/65feeb57f817cd6df74390121a64d5cf24f7869d?filepath=Twopiece_Demo.ipynb)
+- Demo: [Python Notebook](https://github.com/quantgirluk/Quant-Girl-Blog/blob/master/Twopiece_Demo.ipynb)
 - Free software: MIT license
 
 ---
