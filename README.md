@@ -1,9 +1,10 @@
 # *twopiece*: Two-Piece Distributions
 
 
-- **Homepage:** https://github.com/quantgirluk/twopiece
-- **Free software:** MIT license
-- **Pip Repository:** [twopiece](https://pypi.org/project/twopiece/)
+- Homepage: https://github.com/quantgirluk/twopiece
+- Pip Repository: [twopiece](https://pypi.org/project/twopiece/)
+- Demo: [Python Notebook](https://github.com/quantgirluk/twopiece/blob/master/twopiece_demo.ipynb)
+- Free software: MIT license
 
 ---
 
@@ -34,7 +35,7 @@ and [Double Two-Piece](#double-two-piece). The following diagram shows how these
 
 The family of **two–piece scale distributions** is a family of univariate three parameter location-scale models, 
 where **_skewness_** is introduced by differing [**_scale_**](https://en.wikipedia.org/wiki/Scale_parameter) 
-parameters either side of the [mode](https://en.wikipedia.org/wiki/Mode_(statistics).
+parameters either side of the [mode](<https://en.wikipedia.org/wiki/Mode_(statistics)>).
 
 **Definition.** Let <img src="/tex/4ca7071da574c80015a95feaaac0db88.svg?invert_in_darkmode&sanitize=true" align=middle width=82.9221657pt height=22.831056599999986pt/> be a unimodal symmetric (around zero) probability 
 density function (pdf) from the [location-scale family](https://en.wikipedia.org/wiki/Location%E2%80%93scale_family), 
@@ -114,7 +115,7 @@ Implementation is provided for the following distributions.
 
 | Name      |  Function        | Parameters |
 |-------------|-------------|----------|
-| Two-Piece Normal [[+ info]](https://en.wikipedia.org/wiki/Split_normal_distribution)       | tpnorm       | loc, sigma1, sigma2  |
+| [Two-Piece Normal](https://quantgirl.blog/two-piece-normal/)       | tpnorm       | loc, sigma1, sigma2  |
 | Two-Piece Laplace       | tplaplace    |  loc, sigma1, sigma2  |
 | Two-Piece Cauchy        | tpcauchy     | loc, sigma1, sigma2  |
 | Two-Piece Logistic      | tplogistic   | loc, sigma1, sigma2  |
