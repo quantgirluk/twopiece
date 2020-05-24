@@ -4,6 +4,7 @@
 - Homepage: https://github.com/quantgirluk/twopiece
 - Pip Repository: [twopiece](https://pypi.org/project/twopiece/)
 - Demo: [Python Notebook](https://github.com/quantgirluk/twopiece/blob/master/twopiece_demo.ipynb)
+- Demo: [Interactive](https://mybinder.org/v2/gh/quantgirluk/Quant-Girl-Blog/65feeb57f817cd6df74390121a64d5cf24f7869d?filepath=Twopiece_Demo.ipynb)
 - Free software: MIT license
 
 ---
@@ -26,7 +27,7 @@ and [Double Two-Piece](#double-two-piece). The following diagram shows how these
 
 <figure>
 <center>
-  <p><img src="families.png"
+  <p><img src="tpfamilies.png"
     width="500" height="230">
 </figure>
 
@@ -82,7 +83,7 @@ and shape** in each direction.
 
 <p align="center"><img src="/tex/0acc9d11af27373b9c058dcef774af76.svg?invert_in_darkmode&sanitize=true" align=middle width=411.39630675pt height=78.90491235pt/></p>
 where
-<p align="center"><img src="/tex/698b64ad741e638c3c6d56f882c8a307.svg?invert_in_darkmode&sanitize=true" align=middle width=197.7788736pt height=38.83491479999999pt/></p>
+<p align="center"><img src="/tex/5baf9f1c02e1991d443bd4eda4e4f07b.svg?invert_in_darkmode&sanitize=true" align=middle width=196.34435534999997pt height=38.83491479999999pt/></p>
 
 **Example.** If <img src="/tex/190083ef7a1625fbc75f243cffb9c96d.svg?invert_in_darkmode&sanitize=true" align=middle width=9.81741584999999pt height=22.831056599999986pt/> corresponds to the Student-t pdf then <img src="/tex/6f9bad7347b91ceebebd3ad7e6f6f2d1.svg?invert_in_darkmode&sanitize=true" align=middle width=7.7054801999999905pt height=14.15524440000002pt/> corresponds to the pdf of the Double Two-Piece Student-t distribution. Note that <img src="/tex/6f9bad7347b91ceebebd3ad7e6f6f2d1.svg?invert_in_darkmode&sanitize=true" align=middle width=7.7054801999999905pt height=14.15524440000002pt/> has different scale and shape on each side of the mode.
 
@@ -127,9 +128,9 @@ Implementation is provided for the following distributions.
 
 | Name      |  Function        | Parameters |
 |-------------|-------------|----------|
-| Two-Piece Student-t      | tpshastudent    | loc, sigma, shape1, shape2 |
-| Two-Piece Exponential Power      | tpshagennorm    | loc, sigma, shape1, shape2 |
-| Two-Piece SinhArcSinh    | tpshasas   |loc, sigma, shape1, shape2 |
+| Two-Piece-Shape Student-t      | tpshastudent    | loc, sigma, shape1, shape2 |
+| Two-Piece-Shape Exponential Power      | tpshagennorm    | loc, sigma, shape1, shape2 |
+| Two-Piece-Shape SinhArcSinh    | tpshasas   |loc, sigma, shape1, shape2 |
 
 
 
@@ -144,7 +145,7 @@ Implementation is provided for the following distributions.
 
 ---
 ## Main Features
-We provide the following functionality
+We provide the following functionality for all the supported distributions.
 
 | Function    |  Method   | Parameters |
 |-------------|-------------|-------------|
@@ -153,7 +154,7 @@ Cumulative Distribution Function | cdf |  x
 Quantile Function | ppf | q
 Random Sample Generation | random_sample | size
 
-for all the supported distributions.
+
 
 ---
 ## Quick Start
