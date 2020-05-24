@@ -27,7 +27,7 @@ and [Double Two-Piece](#double-two-piece). The following diagram shows how these
 
 <figure>
 <center>
-  <p><img src="\data\tpfamilies.png"
+  <p><img src="tpfamilies.png"
     width="500" height="230">
 </figure>
 
