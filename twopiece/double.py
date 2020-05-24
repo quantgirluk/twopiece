@@ -287,4 +287,4 @@ def display_dtp(tpd='All', loc=0.0, sigma1=1.0, sigma2=0.5, shape1=2.0, shape2=6
         z = dtpsas(loc=loc, sigma1=sigma1, sigma2=sigma2, shape1=shape1, shape2=shape2)
         display_dist(dist=z, color='deeppink', name='dtpsas', show=show, xlim=xlim)
 
-    return 1
+    return None

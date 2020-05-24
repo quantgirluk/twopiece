@@ -94,7 +94,7 @@ def display_dist(dist, name='', color='dodgerblue', bound=False, show='random_sa
 
     if show in ['All', 'random_sample']:
 
-        sample = dist.random_sample(10000)
+        sample = dist.random_sample(1000)
 
         if bound:
             sample = sample[abs(sample) < 25]
@@ -110,7 +110,7 @@ def display_dist(dist, name='', color='dodgerblue', bound=False, show='random_sa
         plt.title(name + ' random sample')
         plt.show()
 
-    return 1
+    return None
 
 
 def display_parameterisations(dist=None, loc=0.0, sigma1=1.0, sigma2=1.0, sigma=1.0, gamma=0.5, show='random_sample'):
@@ -126,7 +126,7 @@ def display_parameterisations(dist=None, loc=0.0, sigma1=1.0, sigma2=1.0, sigma=
     z = dist(loc=loc, sigma=sigma, gamma=gamma, kind='percentile')
     display_dist(dist=z, color='black', name='percentile', show=show)
 
-    return 1
+    return None
 
 
 def display_parameterisations_shape(dist=None, loc=0.0, sigma1=1.0, sigma2=1.0,
@@ -143,4 +143,4 @@ def display_parameterisations_shape(dist=None, loc=0.0, sigma1=1.0, sigma2=1.0,
     z = dist(loc=loc, sigma=sigma, gamma=gamma, shape=shape, kind='percentile')
     display_dist(dist=z, color='black', name='percentile', show=show)
 
-    return 1
+    return None

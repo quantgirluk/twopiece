@@ -10,6 +10,7 @@ import math
 
 import scipy.stats
 from numpy import isscalar, asarray, random, sum, empty
+
 from twopiece.sinharcsinh import ssas
 from twopiece.utils import display_dist
 
@@ -407,4 +408,4 @@ def display_tpscale(tpdist='All', loc=0.0, sigma1=1.0, sigma2=1.0, shape=3.0, sh
         z = tpsas(loc=loc, sigma1=sigma1, sigma2=sigma2, shape=shape)
         display_dist(dist=z, color='deeppink', name='tpsas', show=show)
 
-    return 1
+    return None

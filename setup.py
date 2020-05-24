@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="twopiece",
-    version="1.1.8",
+    version="1.1.9",
     author="Dialid Santiago ",
     author_email="quantgirl.uk@gmail.com",
     description="Two-Piece Distributions Implementation",
