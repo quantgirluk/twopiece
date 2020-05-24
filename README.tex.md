@@ -4,6 +4,7 @@
 - Homepage: https://github.com/quantgirluk/twopiece
 - Pip Repository: [twopiece](https://pypi.org/project/twopiece/)
 - Demo: [Python Notebook](https://github.com/quantgirluk/twopiece/blob/master/twopiece_demo.ipynb)
+- Demo: [Interactive](https://mybinder.org/v2/gh/quantgirluk/Quant-Girl-Blog/65feeb57f817cd6df74390121a64d5cf24f7869d?filepath=Twopiece_Demo.ipynb)
 - Free software: MIT license
 
 ---
@@ -26,7 +27,7 @@ and [Double Two-Piece](#double-two-piece). The following diagram shows how these
 
 <figure>
 <center>
-  <p><img src="families.png"
+  <p><img src="\data\tpfamilies.png"
     width="500" height="230">
 </figure>
 
@@ -103,7 +104,7 @@ s\left(x; \mu,\sigma_1,\sigma_2, \delta_1, \delta_2 \right) =
 $$
 where
 $$
-\epsilon = \dfrac{\sigma_1f(0;\delta_2)}{\sigma2f(0;\delta_1)+\sigma_1 f(0;\delta_2)}.
+\epsilon = \dfrac{\sigma_1f(0;\delta_2)}{\sigma_2f(0;\delta_1)+\sigma_1 f(0;\delta_2)}.
 $$
 
 **Example.** If $f$ corresponds to the Student-t pdf then $s$ corresponds to the pdf of the Double Two-Piece Student-t distribution. Note that $s$ has different scale and shape on each side of the mode.
@@ -149,9 +150,9 @@ Implementation is provided for the following distributions.
 
 | Name      |  Function        | Parameters |
 |-------------|-------------|----------|
-| Two-Piece Student-t      | tpshastudent    | loc, sigma, shape1, shape2 |
-| Two-Piece Exponential Power      | tpshagennorm    | loc, sigma, shape1, shape2 |
-| Two-Piece SinhArcSinh    | tpshasas   |loc, sigma, shape1, shape2 |
+| Two-Piece-Shape Student-t      | tpshastudent    | loc, sigma, shape1, shape2 |
+| Two-Piece-Shape Exponential Power      | tpshagennorm    | loc, sigma, shape1, shape2 |
+| Two-Piece-Shape SinhArcSinh    | tpshasas   |loc, sigma, shape1, shape2 |
 
 
 
@@ -166,7 +167,7 @@ Implementation is provided for the following distributions.
 
 ---
 ## Main Features
-We provide the following functionality
+We provide the following functionality for all the supported distributions.
 
 | Function    |  Method   | Parameters |
 |-------------|-------------|-------------|
@@ -175,7 +176,7 @@ Cumulative Distribution Function | cdf |  x
 Quantile Function | ppf | q
 Random Sample Generation | random_sample | size
 
-for all the supported distributions.
+
 
 ---
 ## Quick Start
