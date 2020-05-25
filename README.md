@@ -6,7 +6,7 @@
 
 - Homepage: https://github.com/quantgirluk/twopiece
 - Pip Repository: [twopiece](https://pypi.org/project/twopiece/)
-- Demo: [Python Notebook](https://github.com/quantgirluk/Quant-Girl-Blog/blob/master/Twopiece_Demo.ipynb)
+- Demo: [Python Notebook](https://gist.github.com/quantgirluk/ce92f3b829fd75c9d31f9ebb63890517)
 
 
 ---
@@ -37,7 +37,7 @@ and [Double Two-Piece](#double-two-piece). The following diagram shows how these
 ### Two-Piece Scale
 
 The family of **two–piece scale distributions** is a family of univariate three parameter location-scale models, 
-where **_skewness_** is introduced by differing [**_scale_**](https://en.wikipedia.org/wiki/Scale_parameter) 
+where **_skewness_** is introduced by differing [scale](https://en.wikipedia.org/wiki/Scale_parameter) 
 parameters either side of the [mode](<https://en.wikipedia.org/wiki/Mode_(statistics)>).
 
 **Definition.** Let <img src="/tex/4ca7071da574c80015a95feaaac0db88.svg?invert_in_darkmode&sanitize=true" align=middle width=82.9221657pt height=22.831056599999986pt/> be a unimodal symmetric (around zero) probability 
