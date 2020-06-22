@@ -6,7 +6,7 @@
 
 - Homepage: https://github.com/quantgirluk/twopiece
 - Pip Repository: [twopiece](https://pypi.org/project/twopiece/)
-- Demo: [Python Notebook](https://gist.github.com/quantgirluk/ce92f3b829fd75c9d31f9ebb63890517)
+- Demo: [Python Notebook](https://github.com/quantgirluk/Quant-Girl-Blog/blob/master/Twopiece_Demo.ipynb)
 
 
 ---
@@ -37,7 +37,7 @@ and [Double Two-Piece](#double-two-piece). The following diagram shows how these
 ### Two-Piece Scale
 
 The family of **two–piece scale distributions** is a family of univariate three parameter location-scale models, 
-where **_skewness_** is introduced by differing [scale](https://en.wikipedia.org/wiki/Scale_parameter) 
+where **_skewness_** is introduced by differing [**_scale_**](https://en.wikipedia.org/wiki/Scale_parameter) 
 parameters either side of the [mode](<https://en.wikipedia.org/wiki/Mode_(statistics)>).
 
 **Definition.** Let <img src="/tex/4ca7071da574c80015a95feaaac0db88.svg?invert_in_darkmode&sanitize=true" align=middle width=82.9221657pt height=22.831056599999986pt/> be a unimodal symmetric (around zero) probability 
@@ -83,7 +83,7 @@ and shape** in each direction.
 
 **Definition.** Let <img src="/tex/4ca7071da574c80015a95feaaac0db88.svg?invert_in_darkmode&sanitize=true" align=middle width=82.9221657pt height=22.831056599999986pt/> be a unimodal symmetric (around 0) probability density function (pdf) from the [location-scale family](https://en.wikipedia.org/wiki/Location%E2%80%93scale_family) which includes a [shape parameter](https://en.wikipedia.org/wiki/Shape_parameter) <img src="/tex/38f1e2a089e53d5c990a82f284948953.svg?invert_in_darkmode&sanitize=true" align=middle width=7.928075099999989pt height=22.831056599999986pt/>. Then, the pdf of a member of the two-piece family of distributions is given by
 
-<p align="center"><img src="/tex/0acc9d11af27373b9c058dcef774af76.svg?invert_in_darkmode&sanitize=true" align=middle width=411.39630675pt height=78.90491235pt/></p>
+<p align="center"><img src="/tex/cac8167f3f48b12009e0e1fb4d73f1ac.svg?invert_in_darkmode&sanitize=true" align=middle width=411.39630675pt height=78.90491235pt/></p>
 where
 <p align="center"><img src="/tex/5baf9f1c02e1991d443bd4eda4e4f07b.svg?invert_in_darkmode&sanitize=true" align=middle width=196.34435534999997pt height=38.83491479999999pt/></p>
 
