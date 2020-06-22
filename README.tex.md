@@ -100,8 +100,8 @@ and shape** in each direction.
 $$
 s\left(x; \mu,\sigma_1,\sigma_2, \delta_1, \delta_2 \right) =
   \begin{cases}
-\dfrac{2\epsilon}{\sigma_1}f\left(\dfrac{x-\mu}{\sigma};\delta_1\right), \mbox{if } x < \mu, \\
-\dfrac{2(1 -\epsilon)}{\sigma_2}f\left(\dfrac{x-\mu}{\sigma};\delta_2\right), \mbox{if } x \geq \mu. \\
+\dfrac{2\epsilon}{\sigma_1}f\left(\dfrac{x-\mu}{\sigma_1};\delta_1\right), \mbox{if } x < \mu, \\
+\dfrac{2(1 -\epsilon)}{\sigma_2}f\left(\dfrac{x-\mu}{\sigma_2};\delta_2\right), \mbox{if } x \geq \mu. \\
 \end{cases}
 $$
 where
