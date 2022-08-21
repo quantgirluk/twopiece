@@ -6,14 +6,11 @@
 # --
 # coding: utf-8
 
-import math
-
-import numpy as np
 import scipy.stats
 from numpy import isscalar, asarray, random, sum, empty
 
 from twopiece.sinharcsinh import ssas
-from twopiece.utils import display_dist
+from twopiece.utils import display_dist, get_sigma1_sigma2
 
 
 def pdf_tp_generic(x, pdf, loc, sigma1, sigma2):
@@ -28,58 +25,43 @@ def pdf_tp_generic(x, pdf, loc, sigma1, sigma2):
     :return: pdf of the defined two piece in x
 
     """
-
     if sigma1 * sigma2 <= 0:
         raise AssertionError('Scale parameters must be positive.')
-
     aux = 2 / (sigma1 + sigma2)
-
     if isscalar(x):
-
         if x < loc:
-
             output = aux * pdf((x - loc) / sigma1)
-
         else:
-
             output = aux * pdf((x - loc) / sigma2)
     else:
-
         x = asarray(x)
         output = empty(x.size)
         index = x < loc
         output[index] = aux * pdf((x[index] - loc) / sigma1)
         index = x >= loc
         output[index] = aux * pdf((x[index] - loc) / sigma2)
-
     return output
 
 
 def cdf_tp_generic(x, cdf, loc, sigma1, sigma2):
     """
     Cumulative Density Function at x of the defined two piece distribution.
-
     :param x: array like
     :param cdf: a cumulative density function from a symmetric distribution defined on R.
     :param loc: location parameter
     :param sigma1: scale parameter
     :param sigma2: scale parameter
     :return:
-
     """
 
     if sigma1 * sigma2 <= 0:
         raise AssertionError('Scale parameters must be positive.')
-
     aux = 2 / (sigma1 + sigma2)
-
     if isscalar(x):
-
         if x < loc:
             output = aux * sigma1 * cdf((x - loc) / sigma1)
         else:
             output = 1 - aux * sigma2 * (1 - cdf((x - loc) / sigma2))
-
     else:
         x = asarray(x)
         output = empty(x.size)
@@ -94,7 +76,6 @@ def cdf_tp_generic(x, cdf, loc, sigma1, sigma2):
 def qqf_tp_generic(q, qqf, loc, sigma1, sigma2):
     """
     Quantile Function at q of the defined two piece distribution.
-
     :param q: array like
     :param qqf: a quantile function (ppf) from a symmetric distribution defined on R.
     :param loc: location parameter
@@ -109,24 +90,16 @@ def qqf_tp_generic(q, qqf, loc, sigma1, sigma2):
     p = sigma1 / (sigma1 + sigma2)
 
     if isscalar(q):
-
         if q > 1 or q < 0:
             raise AssertionError('Quantile Function is defined on (0,1).')
-
         if q <= p:
-
             output = loc + sigma1 * qqf(0.5 * (sigma1 + sigma2) * q / sigma1)
-
         else:
             output = loc + sigma2 * qqf(0.5 * ((sigma1 + sigma2) * (1 + q) - 2 * sigma1) / sigma2)
-
     else:
-
         q = asarray(q)
-
         if sum((q > 1) | (q < 0)) > 0:
             raise AssertionError('Quantile Function is defined on (0,1).')
-
         output = empty(q.size)
         index = q <= p
         output[index] = loc + sigma1 * qqf(0.5 * (sigma1 + sigma2) * q[index] / sigma1)
@@ -139,7 +112,6 @@ def qqf_tp_generic(q, qqf, loc, sigma1, sigma2):
 def random_tp_sample(size, qqf, loc, sigma1, sigma2):
     """
     Random Sample Generation
-
     :param size: integer, sample size
     :param qqf: a quantile function (ppf) from a symmetric distribution defined on R
     :param loc: location parameter
@@ -148,7 +120,7 @@ def random_tp_sample(size, qqf, loc, sigma1, sigma2):
     :return:
     """
     if not isinstance(size, int):
-        raise TypeError('Sample size must be integer.')
+        raise TypeError('Sample size must be of type integer.')
 
     if sigma1 * sigma2 <= 0:
         raise AssertionError('Scale parameters must be positive.')
@@ -157,16 +129,11 @@ def random_tp_sample(size, qqf, loc, sigma1, sigma2):
     p = sigma1 / (sigma1 + sigma2)
 
     if isscalar(alpha):
-
         if alpha <= p:
-
             qq = loc + sigma1 * qqf(0.5 * (sigma1 + sigma2) * alpha / sigma1)
-
         else:
             qq = loc + sigma2 * qqf(0.5 * ((sigma1 + sigma2) * (1 + alpha) - 2 * sigma1) / sigma2)
-
     else:
-
         alpha = asarray(alpha)
         qq = empty(alpha.size)
         index = alpha <= p
@@ -177,62 +144,11 @@ def random_tp_sample(size, qqf, loc, sigma1, sigma2):
     return qq
 
 
-def get_sigma1_sigma2(sigma, gamma, kind):
-    """
-    Gets the scale parameters sigma1, sigma2 from sigma and gamma
-    :param sigma: scale parameter
-    :param gamma: skewness or asymmetry parameter
-    :param kind: Parametrisation name
-    :return: sigma1 and sigma2 scale parameters
-    """
-
-    if kind == 'inverse_scale':
-
-        if gamma <= 0:
-            raise AssertionError("Gamma parameter must be positive")
-        sigma1 = sigma / gamma
-        sigma2 = sigma * gamma
-
-    elif kind == 'epsilon_skew':
-
-        if gamma >= 1 or gamma <= -1:
-            raise AssertionError("Gamma parameter must be in (-1, 1)")
-
-        sigma1 = sigma * (1 + gamma)
-        sigma2 = sigma * (1 - gamma)
-
-    elif kind == 'percentile':
-
-        if gamma >= 1 or gamma <= 0:
-            raise AssertionError("Gamma parameter must be in (0,1)")
-
-        sigma1 = sigma * gamma
-        sigma2 = sigma * (1 - gamma)
-
-    elif kind == 'boe':
-
-        if gamma == 0:
-            actual_gamma = 0
-        else:
-            s = gamma / sigma
-            actual_gamma_unsigned = np.sqrt(1 - 4 * ((np.sqrt(1 + np.pi * s ** 2) - 1) / (np.pi * s ** 2)) ** 2)
-            actual_gamma = actual_gamma_unsigned if gamma > 0 else -actual_gamma_unsigned
-
-        sigma1 = sigma / math.sqrt(1 + actual_gamma)
-        sigma2 = sigma / math.sqrt(1 - actual_gamma)
-
-    else:
-        raise ValueError('Invalid Parametrisation')
-
-    return sigma1, sigma2
-
-
 class TwoPiece:
 
     def __init__(self, f, loc, sigma1, sigma2, sigma, gamma, kind):
 
         """
-
         :param f: continuous symmetric distribution with support on R
         :param loc: location parameter
         :param sigma1: scale parameter
@@ -242,13 +158,13 @@ class TwoPiece:
         :param kind: Parametrisation
         """
 
-        if all(v is None for v in {sigma1, sigma2, sigma, gamma, kind}):
-            raise AssertionError('Expected either (sigma1, sigma2) or (sigma, gamma, kind).')
-
-        if kind:
-            if kind not in {'inverse_scale', 'epsilon_skew', 'percentile', 'boe'}:
-                raise AssertionError('Invalid Parametrisation')
-
+        if sigma1 is None or sigma2 is None:
+            if sigma is None or gamma is None or kind is None:
+                raise TypeError('Missing parameters.Expected either '
+                                '(sigma1, sigma2) or (sigma, gamma, kind).')
+        if kind and kind not in {'inverse_scale', 'epsilon_skew', 'percentile', 'boe'}:
+            raise ValueError('Invalid value of kind provided. Valid values '
+                             'are boe, inverse_scale, epsilon_skew, percentile.  ')
         self.f = f
         self.loc = loc
         self.sigma = sigma
@@ -256,19 +172,12 @@ class TwoPiece:
         self.kind = kind
 
         if sigma1 and sigma2:
-
             self.sigma1 = sigma1
             self.sigma2 = sigma2
-
         else:
-
-            try:
-                sigma1, sigma2 = get_sigma1_sigma2(self.sigma, self.gamma, self.kind)
-                self.sigma1 = sigma1
-                self.sigma2 = sigma2
-
-            except BaseException:
-                print('Missing or Invalid Arguments')
+            sigma1, sigma2 = get_sigma1_sigma2(self.sigma, self.gamma, self.kind)
+            self.sigma1 = sigma1
+            self.sigma2 = sigma2
 
 
 class TwoPieceScale(TwoPiece):
@@ -279,17 +188,14 @@ class TwoPieceScale(TwoPiece):
 
     def cdf(self, x):
         s = cdf_tp_generic(x, self.f.cdf, self.loc, self.sigma1, self.sigma2)
-
         return s
 
     def ppf(self, x):
         qq = qqf_tp_generic(x, self.f.ppf, self.loc, self.sigma1, self.sigma2)
-
         return qq
 
     def random_sample(self, size):
         sample = random_tp_sample(size, self.f.ppf, self.loc, self.sigma1, self.sigma2)
-
         return sample
 
 
@@ -335,20 +241,12 @@ class TwoPieceScalewithShape:
         self.kind = kind
 
         if sigma1 and sigma2:
-
             self.sigma1 = sigma1
             self.sigma2 = sigma2
-
         else:
-
-            try:
-
-                sigma1, sigma2 = get_sigma1_sigma2(self.sigma, self.gamma, self.kind)
-                self.sigma1 = sigma1
-                self.sigma2 = sigma2
-
-            except Exception:
-                print('Exception Missing or Invalid Arguments')
+            sigma1, sigma2 = get_sigma1_sigma2(self.sigma, self.gamma, self.kind)
+            self.sigma1 = sigma1
+            self.sigma2 = sigma2
 
 
 class tp_scalesh(TwoPieceScalewithShape):

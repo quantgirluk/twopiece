@@ -17,11 +17,9 @@ from twopiece.utils import get_sigma1_sigma2, display_dist
 def pdf_tpd_generic(x, pdf1, pdf2, loc, sigma1, sigma2, epsilon):
     """
     Probability density function at x of the defined two piece distribution.
-
+    :param x: array like
     :param pdf1:
     :param pdf2:
-    :param x: array like
-    :param pdf: a probability density function from a symmetric distribution defined on R.
     :param loc: location parameter
     :param sigma1: scale parameter
     :param sigma2: scale parameter
@@ -31,22 +29,17 @@ def pdf_tpd_generic(x, pdf1, pdf2, loc, sigma1, sigma2, epsilon):
     """
 
     if sigma1 * sigma2 <= 0:
-        raise AssertionError('Scale parameters must be positive.')
+        raise ValueError('Scale parameters must be positive.')
 
     aux1 = 2 * epsilon / sigma1
     aux2 = 2 * (1 - epsilon) / sigma2
 
     if isscalar(x):
-
         if x < loc:
-
             output = aux1 * pdf1((x - loc) / sigma1)
-
         else:
-
             output = aux2 * pdf2((x - loc) / sigma2)
     else:
-
         x = asarray(x)
         output = empty(x.size)
         index = x < loc
@@ -62,7 +55,8 @@ def cdf_tpd_generic(x, cdf1, cdf2, loc, sigma1, sigma2, epsilon):
     Cumulative Density Function at x of the defined two piece distribution.
 
     :param x: array like
-    :param cdf: a cumulative density function from a symmetric distribution defined on R.
+    :param cdf1: a cumulative density function from a symmetric distribution defined on R.
+    :param cdf2: a cumulative density function from a symmetric distribution defined on R.
     :param loc: location parameter
     :param sigma1: scale parameter
     :param sigma2: scale parameter
@@ -72,15 +66,12 @@ def cdf_tpd_generic(x, cdf1, cdf2, loc, sigma1, sigma2, epsilon):
     """
 
     if sigma1 * sigma2 <= 0:
-        raise AssertionError('Scale parameters must be positive.')
-
+        raise ValueError('Scale parameters must be positive.')
     if isscalar(x):
-
         if x < loc:
             output = 2 * epsilon * cdf1((x - loc) / sigma1)
         else:
             output = epsilon + (1 - epsilon) * (2 * cdf2((x - loc) / sigma2) - 1)
-
     else:
         x = asarray(x)
         output = empty(x.size)
@@ -97,7 +88,8 @@ def qqf_tpd_generic(q, qqf1, qqf2, loc, sigma1, sigma2, epsilon):
     Quantile Function at q of the defined two piece distribution.
 
     :param q: array like
-    :param qqf: a quantile function (ppf) from a symmetric distribution defined on R.
+    :param qqf1: a quantile function (ppf) from a symmetric distribution defined on R.
+    :param qqf2: a quantile function (ppf) from a symmetric distribution defined on R.
     :param loc: location parameter
     :param sigma1: scale parameter
     :param sigma2: scale parameter
@@ -106,28 +98,20 @@ def qqf_tpd_generic(q, qqf1, qqf2, loc, sigma1, sigma2, epsilon):
     """
 
     if sigma1 * sigma2 <= 0:
-        raise AssertionError('Scale parameters must be positive.')
+        raise ValueError('Scale parameters must be positive.')
 
     if isscalar(q):
-
         if q > 1 or q < 0:
-            raise AssertionError('Quantile Function is defined on (0,1).')
-
+            raise ValueError('Quantile Function is defined on (0,1).')
         if q <= epsilon:
-
             output = loc + sigma1 * qqf1((0.5 / epsilon) * q)
-
         else:
             aux = 0.5 * ((q - epsilon) / (1 - epsilon) + 1)
             output = loc + sigma2 * qqf2(aux)
-
     else:
-
         q = asarray(q)
-
         if sum((q > 1) | (q < 0)) > 0:
-            raise AssertionError('Quantile Function is defined on (0,1).')
-
+            raise ValueError('Quantile Function is defined on (0,1).')
         output = empty(q.size)
         index = q <= epsilon
         output[index] = loc + sigma1 * qqf1((0.5 / epsilon) * q[index])
@@ -143,7 +127,8 @@ def random_tpd_sample(size, qqf1, qqf2, loc, sigma1, sigma2, epsilon):
     Random Sample Generation
 
     :param size: integer, sample size
-    :param qqf: a quantile function (ppf) from a symmetric distribution defined on R
+    :param qqf1: a quantile function (qqf) from a symmetric distribution defined on R.
+    :param qqf2: a quantile function (qqf) from a symmetric distribution defined on R.
     :param loc: location parameter
     :param sigma1: scale parameter
     :param sigma2: scale parameter
@@ -151,24 +136,19 @@ def random_tpd_sample(size, qqf1, qqf2, loc, sigma1, sigma2, epsilon):
     :return:
     """
     if not isinstance(size, int):
-        raise TypeError('Sample size must be integer.')
+        raise TypeError('Sample size must be of type integer.')
 
     if sigma1 * sigma2 <= 0:
-        raise AssertionError('Scale parameters must be positive.')
+        raise ValueError('Scale parameters must be positive.')
 
     alpha = random.rand(size)
 
     if isscalar(alpha):
-
         if alpha <= epsilon:
-
             qq = loc + sigma1 * qqf1(0.5 * alpha / epsilon)
-
         else:
             qq = loc + sigma2 * qqf2(0.5 * ((alpha - epsilon) / (1 - epsilon) + 1))
-
     else:
-
         alpha = asarray(alpha)
         qq = empty(alpha.size)
         index = alpha <= epsilon
@@ -196,11 +176,13 @@ class TwoPieceDouble:
         :param kind: Parametrisation
         """
 
-        if all(v is None for v in {sigma1, sigma2, sigma, gamma}):
-            raise AssertionError('Expected either (sigma1, sigma2) or (sigma, gamma).')
+        if all(v is None for v in {sigma1, sigma2, sigma, gamma, kind}):
+            raise AssertionError('Expected either (sigma1, sigma2) or (sigma, gamma, kind).')
 
-        if kind not in {'inverse_scale', 'epsilon_skew', 'percentile', 'boe'}:
-            raise AssertionError('Invalid Parametrisation')
+        if kind:
+            if kind not in {'inverse_scale', 'epsilon_skew', 'percentile', 'boe'}:
+                raise ValueError('Invalid value of kind provided. Valid values are boe, '
+                                 'inverse_scale, epsilon_skew, percentile.')
 
         self.f = f
         self.loc = loc
@@ -211,20 +193,12 @@ class TwoPieceDouble:
         self.kind = kind
 
         if sigma1 and sigma2:
-
             self.sigma1 = sigma1
             self.sigma2 = sigma2
-
         else:
-
-            try:
-
-                sigma1, sigma2 = get_sigma1_sigma2(self.sigma, self.gamma, self.kind)
-                self.sigma1 = sigma1
-                self.sigma2 = sigma2
-
-            except BaseException:
-                print('Missing or Invalid Arguments')
+            sigma1, sigma2 = get_sigma1_sigma2(self.sigma, self.gamma, self.kind)
+            self.sigma1 = sigma1
+            self.sigma2 = sigma2
 
 
 class tpd_continuous(TwoPieceDouble):
@@ -238,39 +212,36 @@ class tpd_continuous(TwoPieceDouble):
 
     def pdf(self, x):
         s = pdf_tpd_generic(x, self.f1.pdf, self.f2.pdf, self.loc, self.sigma1, self.sigma2, self.epsilon)
-
         return s
 
     def cdf(self, x):
         s = cdf_tpd_generic(x, self.f1.cdf, self.f2.cdf, self.loc, self.sigma1, self.sigma2, self.epsilon)
-
         return s
 
     def ppf(self, x):
         qq = qqf_tpd_generic(x, self.f1.ppf, self.f2.ppf, self.loc, self.sigma1, self.sigma2, self.epsilon)
-
         return qq
 
     def random_sample(self, size):
         sample = random_tpd_sample(size, self.f1.ppf, self.f2.ppf, self.loc, self.sigma1, self.sigma2, self.epsilon)
-
         return sample
+
 
 class dtpstudent(tpd_continuous):
 
-    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape1=None, shape2=None, kind='boe'):
+    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape1=None, shape2=None, kind=None):
         tpd_continuous.__init__(self, scipy.stats.t, loc, sigma1, sigma2, sigma, gamma, shape1, shape2, kind)
 
 
 class dtpgennorm(tpd_continuous):
 
-    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape1=None, shape2=None, kind='boe'):
+    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape1=None, shape2=None, kind=None):
         tpd_continuous.__init__(self, scipy.stats.gennorm, loc, sigma1, sigma2, sigma, gamma, shape1, shape2, kind)
 
 
 class dtpsas(tpd_continuous):
 
-    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape1=None, shape2=None, kind='boe'):
+    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape1=None, shape2=None, kind=None):
         tpd_continuous.__init__(self, ssas, loc, sigma1, sigma2, sigma, gamma, shape1, shape2, kind)
 
 

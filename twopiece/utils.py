@@ -1,7 +1,7 @@
 import math
 
 import matplotlib.pyplot as plt
-from numpy import min, max, arange
+from numpy import min, max, arange, pi
 from seaborn import distplot
 from seaborn import set
 
@@ -11,42 +11,38 @@ set(style='whitegrid', rc={"grid.linewidth": 0.75, "figure.figsize": (9, 6)})
 def get_sigma1_sigma2(sigma, gamma, kind):
     """
     Gets the scale parameters sigma1, sigma2 from sigma and gamma
-
     :param sigma: scale parameter
     :param gamma: skewness or asymmetry parameter
     :param kind: Parametrisation name
-    :return:
+    :return: sigma1 and sigma2 scale parameters
     """
-
     if kind == 'inverse_scale':
-
-        if gamma < 0:
-            raise AssertionError("Gamma parameter must be positive")
+        if gamma <= 0:
+            raise ValueError(f'Gamma parameter must be positive under {kind} parametrisation')
         sigma1 = sigma / gamma
         sigma2 = sigma * gamma
-
     elif kind == 'epsilon_skew':
-
         if gamma >= 1 or gamma <= -1:
-            raise AssertionError("Gamma parameter must be positive")
-
+            raise ValueError(f'Gamma parameter must be in (-1, 1) under {kind} parametrisation')
         sigma1 = sigma * (1 + gamma)
         sigma2 = sigma * (1 - gamma)
-
     elif kind == 'percentile':
-
         if gamma >= 1 or gamma <= 0:
-            raise AssertionError("Gamma parameter must be in (0,1)")
-
+            raise ValueError(f'Gamma parameter must be in (0,1) under {kind} parametrisation')
         sigma1 = sigma * gamma
         sigma2 = sigma * (1 - gamma)
-
+    elif kind == 'boe':
+        if gamma == 0:
+            actual_gamma = 0
+        else:
+            s = gamma / sigma
+            actual_gamma_unsigned = math.sqrt(1 - 4 * ((math.sqrt(1 + pi * s ** 2) - 1) / (pi * s ** 2)) ** 2)
+            actual_gamma = actual_gamma_unsigned if gamma > 0 else -actual_gamma_unsigned
+        sigma1 = sigma / math.sqrt(1 + actual_gamma)
+        sigma2 = sigma / math.sqrt(1 - actual_gamma)
     else:
-        if gamma >= 1 or gamma <= -1:
-            raise AssertionError("Skewness parameters must be in (-1, 1).")
-
-        sigma1 = sigma / math.sqrt(1 + gamma)
-        sigma2 = sigma / math.sqrt(1 - gamma)
+        raise ValueError('Invalid value of kind provided. Valid values '
+                         'are boe, inverse_scale, epsilon_skew, percentile.')
 
     return sigma1, sigma2
 

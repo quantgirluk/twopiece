@@ -17,7 +17,7 @@ from twopiece.utils import display_dist
 class TwoPieceShape(tpd_continuous):
 
     def __init__(self, f, loc=0.0, sigma=1.0, shape1=None, shape2=None):
-        tpd_continuous.__init__(self, f, loc, sigma, sigma, None, None, shape1, shape2, 'boe')
+        tpd_continuous.__init__(self, f, loc, sigma, sigma, None, None, shape1, shape2, None)
 
 
 class tpshastudent(TwoPieceShape):
@@ -52,4 +52,3 @@ def display_tpshape(tpd='All', loc=0.0, sigma=1.0, shape1=2.0, shape2=6.0, show=
         display_dist(dist=z, color='deeppink', name='dtshapsas', show=show, xlim=xlim)
 
     return None
-
