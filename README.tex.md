@@ -29,7 +29,7 @@ and [Double Two-Piece](#double-two-piece). The following diagram shows how these
 
 <figure>
 <center>
-  <p><img src="tpfamilies.png"
+  <p><img src="https://raw.githubusercontent.com/quantgirluk/twopiece/master/tpfamilies.png"
     width="500" height="230">
 </figure>
 
