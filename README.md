@@ -76,7 +76,9 @@ s\left(x; \mu,\sigma,\delta_1 \delta_2\right) =
 \dfrac{2(1 -\epsilon)}{\sigma}f\left(\dfrac{x-\mu}{\sigma};\delta_2\right), \mbox{if } x \geq \mu. \\
 \end{cases}
 $$
+
 where
+
 $$
 \epsilon = \dfrac{f(0;\delta_2)}{f(0;\delta_1)+f(0;\delta_2)}.
 $$
@@ -104,7 +106,9 @@ s\left(x; \mu,\sigma_1,\sigma_2, \delta_1, \delta_2 \right) =
 \dfrac{2(1 -\epsilon)}{\sigma_2}f\left(\dfrac{x-\mu}{\sigma_2};\delta_2\right), \mbox{if } x \geq \mu. \\
 \end{cases}
 $$
+
 where
+
 $$
 \epsilon = \dfrac{\sigma_1f(0;\delta_2)}{\sigma_2f(0;\delta_1)+\sigma_1 f(0;\delta_2)}.
 $$
