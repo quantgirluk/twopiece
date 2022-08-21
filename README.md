@@ -26,9 +26,7 @@ The **_twopiece_** library provides a [Python](https://www.python.org/) implemen
 distributions. It covers three subfamilies [Two-Piece Scale](#two-piece-scale), [Two-Piece Shape](#two-piece-shape),
 and [Double Two-Piece](#double-two-piece). The following diagram shows how these families relate.
 
-
 <figure>
-<center>
   <p><img src="https://raw.githubusercontent.com/quantgirluk/twopiece/master/tpfamilies.png"
     width="500" height="230">
 </figure>

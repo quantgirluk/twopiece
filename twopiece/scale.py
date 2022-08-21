@@ -227,12 +227,13 @@ class TwoPieceScalewithShape:
 
     def __init__(self, f, loc, sigma1, sigma2, sigma, gamma, shape, kind):
 
-        if all(v is None for v in {sigma1, sigma2, sigma, gamma}):
-            raise ValueError('Expected either (sigma1, sigma2) or (sigma, gamma).')
-
-        if kind not in {'inverse_scale', 'epsilon_skew', 'percentile', 'boe'}:
-            raise ValueError('Invalid Parametrisation. Choose one of the following: inverse_scale, epsilon_skew, '
-                             'percentile, boe')
+        if sigma1 is None or sigma2 is None:
+            if sigma is None or gamma is None or kind is None:
+                raise TypeError('Missing parameters.Expected either '
+                                '(sigma1, sigma2) or (sigma, gamma, kind).')
+        if kind and kind not in {'inverse_scale', 'epsilon_skew', 'percentile', 'boe'}:
+            raise ValueError('Invalid value of kind provided. Valid values '
+                             'are boe, inverse_scale, epsilon_skew, percentile.  ')
 
         self.loc = loc
         self.sigma = sigma

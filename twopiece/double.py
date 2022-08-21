@@ -25,7 +25,6 @@ def pdf_tpd_generic(x, pdf1, pdf2, loc, sigma1, sigma2, epsilon):
     :param sigma2: scale parameter
     :param epsilon: shape parameter
     :return: pdf of the defined two piece in x
-
     """
 
     if sigma1 * sigma2 <= 0:
