@@ -8,6 +8,7 @@
 
 import math
 
+import numpy as np
 import scipy.stats
 from numpy import isscalar, asarray, random, sum, empty
 
@@ -179,16 +180,15 @@ def random_tp_sample(size, qqf, loc, sigma1, sigma2):
 def get_sigma1_sigma2(sigma, gamma, kind):
     """
     Gets the scale parameters sigma1, sigma2 from sigma and gamma
-
     :param sigma: scale parameter
     :param gamma: skewness or asymmetry parameter
     :param kind: Parametrisation name
-    :return:
+    :return: sigma1 and sigma2 scale parameters
     """
 
     if kind == 'inverse_scale':
 
-        if gamma < 0:
+        if gamma <= 0:
             raise AssertionError("Gamma parameter must be positive")
         sigma1 = sigma / gamma
         sigma2 = sigma * gamma
@@ -196,7 +196,7 @@ def get_sigma1_sigma2(sigma, gamma, kind):
     elif kind == 'epsilon_skew':
 
         if gamma >= 1 or gamma <= -1:
-            raise AssertionError("Gamma parameter must be positive")
+            raise AssertionError("Gamma parameter must be in (-1, 1)")
 
         sigma1 = sigma * (1 + gamma)
         sigma2 = sigma * (1 - gamma)
@@ -209,12 +209,20 @@ def get_sigma1_sigma2(sigma, gamma, kind):
         sigma1 = sigma * gamma
         sigma2 = sigma * (1 - gamma)
 
-    else:
-        if gamma >= 1 or gamma <= -1:
-            raise AssertionError("Skewness parameters must be in (-1, 1).")
+    elif kind == 'boe':
 
-        sigma1 = sigma / math.sqrt(1 + gamma)
-        sigma2 = sigma / math.sqrt(1 - gamma)
+        if gamma == 0:
+            actual_gamma = 0
+        else:
+            s = gamma / sigma
+            actual_gamma_unsigned = np.sqrt(1 - 4 * ((np.sqrt(1 + np.pi * s ** 2) - 1) / (np.pi * s ** 2)) ** 2)
+            actual_gamma = actual_gamma_unsigned if gamma > 0 else -actual_gamma_unsigned
+
+        sigma1 = sigma / math.sqrt(1 + actual_gamma)
+        sigma2 = sigma / math.sqrt(1 - actual_gamma)
+
+    else:
+        raise ValueError('Invalid Parametrisation')
 
     return sigma1, sigma2
 
@@ -234,11 +242,12 @@ class TwoPiece:
         :param kind: Parametrisation
         """
 
-        if all(v is None for v in {sigma1, sigma2, sigma, gamma}):
-            raise AssertionError('Expected either (sigma1, sigma2) or (sigma, gamma).')
+        if all(v is None for v in {sigma1, sigma2, sigma, gamma, kind}):
+            raise AssertionError('Expected either (sigma1, sigma2) or (sigma, gamma, kind).')
 
-        if kind not in {'inverse_scale', 'epsilon_skew', 'percentile', 'boe'}:
-            raise AssertionError('Invalid Parametrisation')
+        if kind:
+            if kind not in {'inverse_scale', 'epsilon_skew', 'percentile', 'boe'}:
+                raise AssertionError('Invalid Parametrisation')
 
         self.f = f
         self.loc = loc
@@ -254,7 +263,6 @@ class TwoPiece:
         else:
 
             try:
-
                 sigma1, sigma2 = get_sigma1_sigma2(self.sigma, self.gamma, self.kind)
                 self.sigma1 = sigma1
                 self.sigma2 = sigma2
@@ -287,25 +295,25 @@ class TwoPieceScale(TwoPiece):
 
 class tpnorm(TwoPieceScale):
 
-    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, kind='boe'):
+    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, kind=None):
         TwoPieceScale.__init__(self, scipy.stats.norm, loc, sigma1, sigma2, sigma, gamma, kind)
 
 
 class tplaplace(TwoPieceScale):
 
-    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, kind='boe'):
+    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, kind=None):
         TwoPieceScale.__init__(self, scipy.stats.laplace, loc, sigma1, sigma2, sigma, gamma, kind)
 
 
 class tpcauchy(TwoPieceScale):
 
-    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, kind='boe'):
+    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, kind=None):
         TwoPieceScale.__init__(self, scipy.stats.cauchy, loc, sigma1, sigma2, sigma, gamma, kind)
 
 
 class tplogistic(TwoPieceScale):
 
-    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, kind='boe'):
+    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, kind=None):
         TwoPieceScale.__init__(self, scipy.stats.logistic, loc, sigma1, sigma2, sigma, gamma, kind)
 
 
@@ -317,7 +325,8 @@ class TwoPieceScalewithShape:
             raise ValueError('Expected either (sigma1, sigma2) or (sigma, gamma).')
 
         if kind not in {'inverse_scale', 'epsilon_skew', 'percentile', 'boe'}:
-            raise ValueError('Invalid Parametrisation.')
+            raise ValueError('Invalid Parametrisation. Choose one of the following: inverse_scale, epsilon_skew, '
+                             'percentile, boe')
 
         self.loc = loc
         self.sigma = sigma
@@ -363,19 +372,19 @@ class tp_scalesh(TwoPieceScalewithShape):
 
 class tpstudent(tp_scalesh):
 
-    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape=None, kind='boe'):
+    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape=None, kind=None):
         tp_scalesh.__init__(self, scipy.stats.t, loc, sigma1, sigma2, sigma, gamma, shape, kind)
 
 
 class tpgennorm(tp_scalesh):
 
-    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape=None, kind='boe'):
+    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape=None, kind=None):
         tp_scalesh.__init__(self, scipy.stats.gennorm, loc, sigma1, sigma2, sigma, gamma, shape, kind)
 
 
 class tpsas(tp_scalesh):
 
-    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape=None, kind='boe'):
+    def __init__(self, loc=0.0, sigma1=None, sigma2=None, sigma=None, gamma=None, shape=None, kind=None):
         tp_scalesh.__init__(self, ssas, loc, sigma1, sigma2, sigma, gamma, shape, kind)
 
 
