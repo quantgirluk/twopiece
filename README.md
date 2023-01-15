@@ -336,5 +336,5 @@ Connect with me via:
 - 👾 [Personal Website](https://quantgirl.blog)
 
 
-⭐️ **If you like this projet, please give it a star!** ⭐️
+⭐️ **If you like this repository, please give it a star!** ⭐️
 
