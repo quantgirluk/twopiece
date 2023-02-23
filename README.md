@@ -173,14 +173,12 @@ Implementation is provided for the following distributions.
 ## Main Features
 We provide the following functionality for all the supported distributions.
 
-| Function    |  Method   | Parameters |
-|-------------|-------------|-------------|
-Probability Density Function | pdf | x
-Cumulative Distribution Function | cdf |  x
-Quantile Function | ppf | q
-Random Sample Generation | random_sample | size
-
-
+| Function                         | Method        | Parameters |
+|----------------------------------|---------------|------------|
+| Probability Density Function     | pdf           | x          |
+| Cumulative Distribution Function | cdf           | x          |
+| Quantile Function                | ppf           | q          |
+| Random Sample Generation         | random_sample | size       |
 
 ---
 ## Quick Start
